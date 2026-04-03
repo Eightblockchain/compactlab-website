@@ -89,7 +89,7 @@ export default function Features() {
                 variants={itemVariants}
                 className={`relative group p-6 sm:p-8 bg-black hover:bg-[#0a0a0a] transition-colors duration-200 cursor-default ${
                   feature.highlight ? "border-l-2" : ""
-                }`}
+                } ${features.indexOf(feature) === features.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}`}
                 style={feature.highlight ? { borderLeftColor: "#E95144" } : {}}
               >
                 {feature.highlight && (

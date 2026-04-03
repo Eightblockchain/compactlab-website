@@ -180,7 +180,8 @@ export default function DevExperience() {
               href="https://docs.midnight.network/compact"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-white/50 hover:text-white transition-colors group w-fit"
+              aria-label="Read the Compact docs (opens in new tab)"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white/50 hover:text-white transition-colors group w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm"
             >
               Read the Compact docs
               <svg

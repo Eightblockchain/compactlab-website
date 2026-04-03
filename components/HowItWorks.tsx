@@ -64,7 +64,7 @@ export default function HowItWorks() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.6, delay: i * 0.12 }}
-                  className="group relative flex gap-6 sm:gap-8 sm:gap-12 pb-10 sm:pb-16 last:pb-0"
+                  className="group relative flex gap-6 sm:gap-12 pb-10 sm:pb-16 last:pb-0"
                 >
                   {/* Step indicator */}
                   <div className="relative flex-shrink-0 flex flex-col items-center">

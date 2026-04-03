@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Circle } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import DemoModal from "./DemoModal";
 import { useComingSoon, ComingSoonToast, TOASTS } from "./ComingSoon";
 
@@ -134,6 +134,28 @@ export default function Hero() {
         }}
       />
 
+      {/* Warm radial glow — accent colour, very subtle */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "10%",
+          left: "-10%",
+          width: "60%",
+          height: "70%",
+          background: "radial-gradient(ellipse at center, rgba(233,81,68,0.06) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          bottom: "0%",
+          right: "-5%",
+          width: "50%",
+          height: "50%",
+          background: "radial-gradient(ellipse at center, rgba(233,81,68,0.04) 0%, transparent 70%)",
+        }}
+      />
+
       {/* Thin horizontal rule top */}
       <div className="absolute top-16 left-0 right-0 h-px bg-white/5" />
 
@@ -186,7 +208,7 @@ export default function Hero() {
             >
               <button
                 onClick={() => show(TOASTS.playground)}
-                className="group inline-flex items-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-sm transition-all duration-200 hover:opacity-90"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 style={{ backgroundColor: "#E95144" }}
               >
                 Start Building
@@ -194,7 +216,7 @@ export default function Hero() {
               </button>
               <button
                 onClick={() => setDemoOpen(true)}
-                className="group inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-white border border-white/15 hover:border-white/30 px-6 py-3 rounded-sm transition-all duration-200 cursor-pointer"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-white border border-white/15 hover:border-white/30 px-6 py-3 rounded-sm transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
                 <Play className="w-3.5 h-3.5" />
                 View Demo
@@ -230,9 +252,9 @@ export default function Hero() {
             <div className="rounded-lg overflow-hidden border border-white/10 shadow-2xl shadow-black/80">
               {/* Editor titlebar */}
               <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-white/8">
-                <Circle className="w-3 h-3 fill-white/20 text-white/20" />
-                <Circle className="w-3 h-3 fill-white/20 text-white/20" />
-                <Circle className="w-3 h-3 fill-white/20 text-white/20" />
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FF5F57" }} />
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FEBC2E" }} />
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#28C840" }} />
                 <span className="ml-3 text-xs text-white/30 font-mono">
                   PrivateCounter.compact
                 </span>
@@ -245,7 +267,7 @@ export default function Hero() {
               </div>
 
               {/* Code — clipped on mobile with fade, full on lg+ */}
-              <div className="relative bg-[#080808] py-4 overflow-x-auto max-h-48 sm:max-h-64 lg:max-h-none">
+              <div className="relative bg-[#080808] py-4 overflow-x-auto max-h-48 sm:max-h-64 lg:max-h-none overflow-y-hidden lg:overflow-y-visible">
                 {codeLines.map((line, i) => (
                   <CodeLine key={i} line={line} index={i} />
                 ))}

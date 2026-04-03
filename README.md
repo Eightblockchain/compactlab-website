@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Compact Lab — Landing Page
+
+Marketing and documentation site for [Compact Lab](https://compactlab.dev) — a browser-based IDE for writing, simulating, and deploying [Compact](https://docs.midnight.network/compact) smart contracts on the [Midnight](https://midnight.network) blockchain.
+
+## Tech Stack
+
+- **Framework** — [Next.js 16](https://nextjs.org) (App Router)
+- **Language** — TypeScript
+- **Styling** — Tailwind CSS v4
+- **Animations** — Framer Motion
+- **Icons** — Lucide React
+- **Fonts** — Inter (sans) · JetBrains Mono (code)
+
+## Project Structure
+
+```
+app/
+  layout.tsx          # Root layout, metadata, fonts
+  page.tsx            # Home — assembles all sections
+  changelog/          # Playground release history
+  docs/               # Compact Lab usage documentation
+  privacy/            # Privacy Policy
+  terms/              # Terms of Service
+components/
+  Navbar.tsx          # Fixed top nav with mobile menu
+  Hero.tsx            # Above-the-fold with live code mock
+  Features.tsx        # Feature grid
+  HowItWorks.tsx      # Three-step walkthrough
+  DevExperience.tsx   # DX highlights + syntax demo
+  CTA.tsx             # Call-to-action section
+  Footer.tsx          # Links, legal, status
+  ComingSoon.tsx      # Coming-soon toast system
+  DemoModal.tsx       # Video demo overlay
+```
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run start` | Serve production build |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
+No environment variables are required to run the landing page locally. The playground URL (`playground.compactlab.dev`) is hardcoded and gated behind a coming-soon toast until launch.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The site is deployed on [Vercel](https://vercel.com). Pushing to `main` triggers an automatic production deployment.

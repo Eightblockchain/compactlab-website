@@ -48,7 +48,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-10 lg:gap-16 mb-12 sm:mb-16">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2.5 mb-5">
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black" aria-label="Compact Lab — Home">
               <div
                 className="w-7 h-7 rounded-sm flex items-center justify-center"
                 style={{ backgroundColor: "#E95144" }}

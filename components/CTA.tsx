@@ -35,7 +35,7 @@ export default function CTA() {
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <button
                 onClick={() => show(TOASTS.playground)}
-                className="group inline-flex items-center gap-2.5 text-base font-semibold text-white px-8 py-4 rounded-sm transition-opacity duration-200 hover:opacity-90 whitespace-nowrap"
+                className="group inline-flex items-center gap-2.5 text-base font-semibold text-white px-8 py-4 rounded-sm transition-opacity duration-200 hover:opacity-90 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 style={{ backgroundColor: "#E95144" }}
               >
                 Launch Playground

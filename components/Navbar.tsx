@@ -43,7 +43,7 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center gap-2.5 group" aria-label="Compact Lab — Home">
             <div
               className="w-7 h-7 rounded-sm flex items-center justify-center"
               style={{ backgroundColor: "#E95144" }}
@@ -72,13 +72,13 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={() => show(TOASTS.auth)}
-              className="text-sm text-white/60 hover:text-white transition-colors duration-200 font-medium"
+              className="text-sm text-white/60 hover:text-white transition-colors duration-200 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm"
             >
               Sign In
             </button>
             <button
               onClick={() => show(TOASTS.playground)}
-              className="text-sm font-semibold text-white px-4 py-2 rounded-sm transition-all duration-200 hover:opacity-90"
+              className="text-sm font-semibold text-white px-4 py-2 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               style={{ backgroundColor: "#E95144" }}
             >
               Start Building
@@ -87,7 +87,7 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden p-2 text-white/50 hover:text-white transition-colors"
+            className="md:hidden p-2 text-white/50 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}

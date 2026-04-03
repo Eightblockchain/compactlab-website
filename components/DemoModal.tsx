@@ -99,9 +99,9 @@ export default function DemoModal({ open, onClose }: DemoModalProps) {
               {/* Chrome bar */}
               <div className="flex items-center justify-between px-4 py-3 rounded-t-xl border border-b-0 border-white/10 bg-[#0a0a0a]">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-white/10" />
-                  <span className="w-3 h-3 rounded-full bg-white/10" />
-                  <span className="w-3 h-3 rounded-full bg-white/10" />
+                  <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FF5F57" }} />
+                  <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FEBC2E" }} />
+                  <span className="w-3 h-3 rounded-full" style={{ backgroundColor: "#28C840" }} />
                 </div>
                 <span className="text-xs font-mono text-white/25">Compact Lab — Demo</span>
                 <button
