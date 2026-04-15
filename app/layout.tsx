@@ -56,14 +56,6 @@ export const metadata: Metadata = {
     description:
       "Write, simulate, and deploy Compact smart contracts on the Midnight blockchain — entirely in your browser. No setup required.",
     locale: "en_US",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "Compact Lab — Browser IDE for Midnight Smart Contracts",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -72,7 +64,6 @@ export const metadata: Metadata = {
     title: "Compact Lab — Browser IDE for Midnight Smart Contracts",
     description:
       "Write, simulate, and deploy Compact smart contracts on the Midnight blockchain — entirely in your browser.",
-    images: ["/og.png"],
   },
 };
 
@@ -85,8 +76,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
     >
-      <body className="min-h-full flex flex-col bg-black text-white">
+      <body className="min-h-full flex flex-col bg-black text-white" suppressHydrationWarning>
         {/* Skip-to-content for screen readers and keyboard-only users */}
         <a
           href="#main-content"

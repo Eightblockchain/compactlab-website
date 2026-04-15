@@ -6,6 +6,7 @@
  */
 
 import Link from "next/link";
+import Image from "next/image";
 import { Metadata } from "next";
 import DocsContent from "./content";
 import DocsSidebar from "@/components/docs/DocsSidebar";
@@ -42,15 +43,7 @@ export default function DocsPage() {
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <div
-                className="w-6 h-6 rounded-sm flex items-center justify-center"
-                style={{ backgroundColor: "#E95144" }}
-              >
-                <span className="text-white font-black text-[10px] font-mono">CL</span>
-              </div>
-              <span className="font-semibold text-white tracking-tight text-sm">
-                Compact<span style={{ color: "#E95144" }}>Lab</span>
-              </span>
+              <Image src="/cl-logo.png" alt="Compact Lab logo" width={107} height={20} priority />
             </Link>
             <span className="text-white/15 text-sm">/</span>
             <span className="text-white/40 text-sm">Docs</span>

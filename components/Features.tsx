@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Code2, Zap, Eye, Rocket, LayoutTemplate } from "lucide-react";
+import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
+import { Code2, Zap, Eye, Rocket, LayoutTemplate, LucideIcon } from "lucide-react";
 
 const features = [
   {
@@ -41,6 +41,13 @@ const features = [
   },
 ];
 
+type Feature = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  highlight: boolean;
+};
+
 const containerVariants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08 } },
@@ -50,6 +57,69 @@ const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
+
+function FeatureCard({ feature, isLast }: { feature: Feature; isLast: boolean }) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const glow = useMotionTemplate`radial-gradient(240px circle at ${mouseX}px ${mouseY}px, rgba(233,81,68,0.09), transparent 70%)`;
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
+
+  const Icon = feature.icon;
+
+  return (
+    <motion.div
+      variants={itemVariants}
+      onMouseMove={handleMouseMove}
+      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+      className={`relative group p-6 sm:p-8 bg-black hover:bg-[#0a0a0a] transition-colors duration-200 cursor-default ${
+        feature.highlight ? "border-l-2" : ""
+      } ${isLast ? "sm:col-span-2 lg:col-span-1" : ""}`}
+      style={feature.highlight ? { borderLeftColor: "#E95144" } : {}}
+    >
+      {/* Mouse-tracking spotlight glow */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: glow }}
+      />
+
+      {feature.highlight && (
+        <span
+          className="absolute top-8 right-8 text-[10px] font-bold uppercase tracking-widest px-2 py-0.5"
+          style={{ color: "#E95144", backgroundColor: "rgba(233,81,68,0.08)", border: "1px solid rgba(233,81,68,0.2)" }}
+        >
+          Unique
+        </span>
+      )}
+
+      {/* Icon with spring hover */}
+      <motion.div
+        className="mb-5 w-fit"
+        whileHover={{ scale: 1.15, rotate: 4 }}
+        transition={{ type: "spring", stiffness: 400, damping: 20 }}
+      >
+        <Icon
+          className="w-5 h-5"
+          style={feature.highlight ? { color: "#E95144" } : { color: "rgba(255,255,255,0.4)" }}
+        />
+      </motion.div>
+
+      <h3 className="font-semibold text-white text-base mb-2.5 tracking-tight">
+        {feature.title}
+      </h3>
+      <p className="text-sm text-white/40 leading-relaxed">
+        {feature.description}
+      </p>
+    </motion.div>
+  );
+}
+
+
 
 export default function Features() {
   return (
@@ -81,40 +151,13 @@ export default function Features() {
           viewport={{ once: true, margin: "-60px" }}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/6"
         >
-          {features.map((feature) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={feature.title}
-                variants={itemVariants}
-                className={`relative group p-6 sm:p-8 bg-black hover:bg-[#0a0a0a] transition-colors duration-200 cursor-default ${
-                  feature.highlight ? "border-l-2" : ""
-                } ${features.indexOf(feature) === features.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}`}
-                style={feature.highlight ? { borderLeftColor: "#E95144" } : {}}
-              >
-                {feature.highlight && (
-                  <span
-                    className="absolute top-8 right-8 text-[10px] font-bold uppercase tracking-widest px-2 py-0.5"
-                    style={{ color: "#E95144", backgroundColor: "rgba(233,81,68,0.08)", border: "1px solid rgba(233,81,68,0.2)" }}
-                  >
-                    Unique
-                  </span>
-                )}
-                <div className="mb-5">
-                  <Icon
-                    className="w-5 h-5"
-                    style={feature.highlight ? { color: "#E95144" } : { color: "rgba(255,255,255,0.4)" }}
-                  />
-                </div>
-                <h3 className="font-semibold text-white text-base mb-2.5 tracking-tight">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-white/40 leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            );
-          })}
+          {features.map((feature, i) => (
+            <FeatureCard
+              key={feature.title}
+              feature={feature}
+              isLast={i === features.length - 1}
+            />
+          ))}
 
           {/* Filler cell to complete the grid visually */}
           <div className="hidden lg:block p-6 sm:p-8 bg-black" />

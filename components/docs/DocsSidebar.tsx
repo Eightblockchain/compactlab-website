@@ -75,7 +75,7 @@ const nav: NavGroup[] = [
 ];
 
 export default function DocsSidebar() {
-  const [active, setActive] = useState<string>("");
+  const [active, setActive] = useState<string>("introduction");
 
   // Track active section via scroll position
   useEffect(() => {

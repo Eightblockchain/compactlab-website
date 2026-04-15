@@ -9,12 +9,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
+      images: [`${BASE}/cl-logo.png`],
     },
     {
       url: `${BASE}/docs`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
+      images: [`${BASE}/cl-logo.png`],
     },
     {
       url: `${BASE}/changelog`,

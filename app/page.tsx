@@ -16,12 +16,26 @@ const jsonLd = {
       name: "Compact Lab",
       description:
         "Browser-based IDE for writing Compact smart contracts on the Midnight blockchain.",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://compactlab.dev/docs#{search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
     {
       "@type": "Organization",
       "@id": "https://compactlab.dev/#organization",
       name: "Compact Lab",
       url: "https://compactlab.dev",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://compactlab.dev/cl-logo.png",
+        width: 3461,
+        height: 648,
+      },
       sameAs: [
         "https://github.com/midnightntwrk",
         "https://x.com/MidnightNtwrk",

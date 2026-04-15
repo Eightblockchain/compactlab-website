@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { LayoutTemplate, FlaskConical, CloudUpload } from "lucide-react";
 
 const steps = [
@@ -28,6 +29,13 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  const stepsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: stepsRef,
+    offset: ["start 85%", "end 30%"],
+  });
+  const lineScaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
     <section id="how-it-works" className="py-24 sm:py-32 border-b border-white/6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,9 +58,15 @@ export default function HowItWorks() {
         </motion.div>
 
         {/* Steps */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-[5px] top-0 bottom-0 w-px bg-white/8 hidden sm:block" style={{ left: "2.25rem" }} />
+        <div ref={stepsRef} className="relative">
+          {/* Static background line */}
+          <div className="absolute top-0 bottom-0 w-px bg-white/8 hidden sm:block" style={{ left: "2.25rem" }} />
+          {/* Animated fill line — grows as you scroll */}
+          <motion.div
+            aria-hidden="true"
+            className="absolute top-0 bottom-0 w-px hidden sm:block origin-top"
+            style={{ left: "2.25rem", scaleY: lineScaleY, backgroundColor: "#E95144", opacity: 0.6 }}
+          />
 
           <div className="flex flex-col gap-0">
             {steps.map((step, i) => {
@@ -68,11 +82,13 @@ export default function HowItWorks() {
                 >
                   {/* Step indicator */}
                   <div className="relative flex-shrink-0 flex flex-col items-center">
-                    <div
+                    <motion.div
+                      whileHover={{ scale: 1.08, borderColor: "rgba(233,81,68,0.5)" }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
                       className="w-12 h-12 sm:w-[72px] sm:h-[72px] rounded-sm border border-white/10 flex items-center justify-center bg-[#080808] group-hover:border-white/20 transition-colors duration-300"
                     >
                       <Icon className="w-5 h-5 text-white/40 group-hover:text-white/70 transition-colors duration-300" />
-                    </div>
+                    </motion.div>
                   </div>
 
                   {/* Content */}

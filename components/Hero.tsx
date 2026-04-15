@@ -180,14 +180,32 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-4xl sm:text-5xl xl:text-7xl font-bold tracking-tighter leading-[1.05] sm:leading-[1.0] text-white"
+              initial="hidden"
+              animate="visible"
+              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07, delayChildren: 0.15 } } }}
+              className="text-4xl sm:text-5xl xl:text-7xl font-bold tracking-tighter text-white"
             >
-              Build Midnight<br />
-              Smart Contracts<br />
-              <span style={{ color: "#E95144" }}>in Minutes.</span>
+              {[
+                { words: ["Build ", "Midnight"],    accent: false },
+                { words: ["Smart ", "Contracts"],   accent: false },
+                { words: ["in ",    "Minutes."],     accent: true  },
+              ].map((line, li) => (
+                <div key={li} className="overflow-hidden leading-[1.08] sm:leading-[1.05]">
+                  {line.words.map((word, wi) => (
+                    <motion.span
+                      key={`${li}-${wi}`}
+                      variants={{
+                        hidden:  { y: "110%", opacity: 0 },
+                        visible: { y: 0, opacity: 1, transition: { duration: 0.65, ease: [0.33, 1, 0.68, 1] } },
+                      }}
+                      className="inline-block"
+                      style={line.accent ? { color: "#E95144" } : undefined}
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
+                </div>
+              ))}
             </motion.h1>
 
             <motion.p
@@ -268,6 +286,12 @@ export default function Hero() {
 
               {/* Code — clipped on mobile with fade, full on lg+ */}
               <div className="relative bg-[#080808] py-4 overflow-x-auto max-h-48 sm:max-h-64 lg:max-h-none overflow-y-hidden lg:overflow-y-visible">
+                {/* Scan line — makes the editor feel alive */}
+                <div
+                  aria-hidden="true"
+                  className="animate-scan pointer-events-none z-10"
+                  style={{ background: "linear-gradient(90deg, transparent 0%, rgba(233,81,68,0.7) 50%, transparent 100%)" }}
+                />
                 {codeLines.map((line, i) => (
                   <CodeLine key={i} line={line} index={i} />
                 ))}

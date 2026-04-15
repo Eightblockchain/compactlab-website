@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 type FooterLink = { label: string; href: string; external?: true };
@@ -48,16 +49,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-10 lg:gap-16 mb-12 sm:mb-16">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2.5 mb-5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black" aria-label="Compact Lab — Home">
-              <div
-                className="w-7 h-7 rounded-sm flex items-center justify-center"
-                style={{ backgroundColor: "#E95144" }}
-              >
-                <span className="text-white font-black text-xs font-mono">CL</span>
-              </div>
-              <span className="font-semibold text-white tracking-tight text-sm">
-                Compact<span style={{ color: "#E95144" }}>Lab</span>
-              </span>
+            <Link href="/" className="inline-flex items-center mb-5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black" aria-label="Compact Lab — Home">
+              <Image src="/cl-logo.png" alt="Compact Lab logo" width={214} height={40} />
             </Link>
             <p className="text-sm text-white/30 leading-relaxed max-w-[22ch]">
               Browser-based IDE for the Midnight blockchain.
