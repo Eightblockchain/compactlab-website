@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://compactlab.dev";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
@@ -9,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://compactlab.dev/sitemap.xml",
-    host: "https://compactlab.dev",
+    sitemap: `${BASE}/sitemap.xml`,
+    host: BASE,
   };
 }

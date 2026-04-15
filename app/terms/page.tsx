@@ -4,11 +4,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "The terms and conditions governing your use of Compact Lab.",
-  alternates: { canonical: "https://compactlab.dev/terms" },
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_BASE_URL ?? "https://compactlab.dev"}/terms` },
   openGraph: {
     title: "Terms of Service | Compact Lab",
     description: "The terms and conditions governing your use of Compact Lab.",
-    url: "https://compactlab.dev/terms",
+    url: `${process.env.NEXT_PUBLIC_BASE_URL ?? "https://compactlab.dev"}/terms`,
   },
   robots: { index: false, follow: false },
 };

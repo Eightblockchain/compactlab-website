@@ -6,13 +6,16 @@ import DevExperience from "@/components/DevExperience";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://compactlab.dev";
+const PLAYGROUND_URL = process.env.NEXT_PUBLIC_PLAYGROUND_URL ?? "https://playground.compactlab.dev";
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://compactlab.dev/#website",
-      url: "https://compactlab.dev",
+      "@id": `${BASE}/#website`,
+      url: BASE,
       name: "Compact Lab",
       description:
         "Browser-based IDE for writing Compact smart contracts on the Midnight blockchain.",
@@ -20,19 +23,19 @@ const jsonLd = {
         "@type": "SearchAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://compactlab.dev/docs#{search_term_string}",
+          urlTemplate: `${BASE}/docs#{search_term_string}`,
         },
         "query-input": "required name=search_term_string",
       },
     },
     {
       "@type": "Organization",
-      "@id": "https://compactlab.dev/#organization",
+      "@id": `${BASE}/#organization`,
       name: "Compact Lab",
-      url: "https://compactlab.dev",
+      url: BASE,
       logo: {
         "@type": "ImageObject",
-        url: "https://compactlab.dev/cl-logo.png",
+        url: `${BASE}/cl-logo.png`,
         width: 3461,
         height: 648,
       },
@@ -43,9 +46,9 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      "@id": "https://compactlab.dev/#app",
+      "@id": `${BASE}/#app`,
       name: "Compact Lab Playground",
-      url: "https://playground.compactlab.dev",
+      url: PLAYGROUND_URL,
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web",
       description:
