@@ -56,14 +56,23 @@ export const metadata: Metadata = {
     description:
       "Write, simulate, and deploy Compact smart contracts on the Midnight blockchain — entirely in your browser. No setup required.",
     locale: "en_US",
+    images: [
+      {
+        url: "/cl-icon.png",
+        width: 654,
+        height: 648,
+        alt: "Compact Lab logo",
+      },
+    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     site: "@CompactLab",
     creator: "@CompactLab",
     title: "Compact Lab — Browser IDE for Midnight Smart Contracts",
     description:
       "Write, simulate, and deploy Compact smart contracts on the Midnight blockchain — entirely in your browser.",
+    images: ["/cl-icon.png"],
   },
 };
 
