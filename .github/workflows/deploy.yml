@@ -55,6 +55,6 @@ jobs:
             npm prune --omit=dev
 
             echo "→ Restarting app..."
-            pm2 reload compactlab --update-env
+            pm2 reload compactlab-web --update-env || pm2 start npm --name "compactlab-web" -- start
 
             echo "✓ Deploy complete"
