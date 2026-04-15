@@ -1,19 +1,20 @@
 import { ImageResponse } from "next/og";
+import { readFileSync } from "fs";
+import { join } from "path";
 
-export const runtime = "edge";
+export const dynamic = "force-dynamic";
 export const alt = "Compact Lab — Browser IDE for Midnight Smart Contracts";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function Image() {
-  const BASE_URL =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://compactlab.dev");
-
-  const logoSrc = await fetch(`${BASE_URL}/cl-logo.png`)
-    .then((res) => res.arrayBuffer())
-    .then((buf) => `data:image/png;base64,${Buffer.from(buf).toString("base64")}`)
-    .catch(() => null);
+export default function Image() {
+  let logoSrc: string | null = null;
+  try {
+    const buf = readFileSync(join(process.cwd(), "public/cl-logo.png"));
+    logoSrc = `data:image/png;base64,${buf.toString("base64")}`;
+  } catch {
+    // logo not found — falls back to text
+  }
 
   return new ImageResponse(
     (
