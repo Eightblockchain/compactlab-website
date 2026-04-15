@@ -6,7 +6,7 @@ import DevExperience from "@/components/DevExperience";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
-const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://compactlab.dev";
+const BASE = process.env.NEXT_PUBLIC_BASE_URL || "https://compactlab.dev";
 const PLAYGROUND_URL = process.env.NEXT_PUBLIC_PLAYGROUND_URL ?? "https://playground.compactlab.dev";
 
 const jsonLd = {

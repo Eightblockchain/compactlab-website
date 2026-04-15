@@ -14,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "https://compactlab.dev";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://compactlab.dev";
 
 /* ── Viewport (separate from metadata per Next.js 14+ spec) ────── */
 export const viewport: Viewport = {

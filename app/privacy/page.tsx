@@ -4,11 +4,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How Compact Lab collects, uses, and protects your data.",
-  alternates: { canonical: `${process.env.NEXT_PUBLIC_BASE_URL ?? "https://compactlab.dev"}/privacy` },
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_BASE_URL || "https://compactlab.dev"}/privacy` },
   openGraph: {
     title: "Privacy Policy | Compact Lab",
     description: "How Compact Lab collects, uses, and protects your data.",
-    url: `${process.env.NEXT_PUBLIC_BASE_URL ?? "https://compactlab.dev"}/privacy`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://compactlab.dev"}/privacy`,
   },
   robots: { index: false, follow: false },
 };
