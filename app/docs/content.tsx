@@ -123,11 +123,12 @@ export default function DocsContent() {
       </P>
 
       <DocH3 id="file-management">
-        File Management <Soon />
+        File Management
       </DocH3>
       <P>
-        Multi-file project support, import/export of <Code>.compact</Code> files,
-        and local persistence are on the roadmap.
+        Signed-in projects sync to CompactLab cloud storage so you can resume work
+        across sessions. Richer multi-file workflows and zip import/export polish
+        continue to evolve with the playground.
       </P>
 
       {/* ── Contract Structure ───────────────────────────────────── */}
@@ -435,7 +436,7 @@ witness secretKey: shielded ✓`}
           },
           {
             q: "Which Compact version is supported?",
-            a: "CompactLab targets Compact compiler 0.30. The version is shown after Compile.",
+            a: "CompactLab targets Compact compiler 0.31.1 (language ≥ 0.23). The version is shown after Compile.",
           },
           {
             q: "Can I use the Lab without a Midnight wallet?",

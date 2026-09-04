@@ -15,9 +15,9 @@ const steps = [
   {
     number: "02",
     icon: FlaskConical,
-    title: "Edit and compile",
+    title: "Edit, compile, and call",
     description:
-      "Write Compact in the browser editor, Typecheck, then Compile (ZK). Hello and Counter also ship bundled keys so you can Deploy without a custom compile.",
+      "Write Compact in the browser editor, Typecheck, then Compile (ZK). Deploy and Call from the Contract panel — real Preprod proofs, not a local Simulate tab.",
   },
   {
     number: "03",

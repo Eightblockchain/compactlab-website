@@ -214,8 +214,8 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.35 }}
               className="text-lg text-white/50 leading-relaxed max-w-md"
             >
-              A browser-based playground for learning and building with Compact.
-              Sign up, Compile, then Deploy and Call on Midnight Preprod with 1AM.
+              Browser IDE with cloud projects. Sign up for free Community access —
+              Compile ZK, then Deploy and Call on Midnight Preprod with 1AM.
             </motion.p>
 
             <motion.div

@@ -38,15 +38,16 @@ const releases: Release[] = [
     date: "April 2, 2026",
     tag: "latest",
     summary:
-      "Initial public launch of Midnight Compact Lab — a browser-based playground for writing, compiling, and deploying Compact smart contracts.",
+      "Community v1: browser IDE with cloud projects — Compile (ZK), Deploy, and Call on Midnight Preprod with 1AM (self-pay tDUST). Free Community plan; signup required. No local Simulate tab.",
     changes: [
-      { kind: "new",      text: "Monaco-based code editor with Compact syntax highlighting (keywords, types, witnesses, circuits)." },
-      { kind: "new",      text: "Live compiler error markers with inline diagnostics." },
-      { kind: "new",      text: "Starter templates: Private Counter, Bulletin Board, ZK Loan." },
-      { kind: "new",      text: "Output panel displaying circuit statistics (k-parameter, constraint rows) and witness declarations." },
-      { kind: "new",      text: "Privacy Visualization layer — colour-coded ZK proof inspector (public vs. shielded expressions)." },
-      { kind: "new",      text: "Cloud projects: signed-in workspaces sync to CompactLab so you can resume later." },
-      { kind: "compiler", text: "Targets Compact compiler 0.30 (shown after Compile)." },
+      { kind: "new",      text: "Free Community plan with signup — browser IDE and cloud-synced projects." },
+      { kind: "new",      text: "Compile (ZK) → Deploy → Call / Contract panel on Midnight Preprod (no local Simulate sandbox)." },
+      { kind: "new",      text: "1AM wallet integration for Deploy and Call; self-pay tDUST for network fees." },
+      { kind: "new",      text: "Monaco-based code editor with Compact syntax highlighting and inline diagnostics." },
+      { kind: "new",      text: "Starter templates including Hello and Counter Instant Deploy; Plus Private Counter, Bulletin Board, ZK Loan." },
+      { kind: "new",      text: "Output panel for compiler results and circuit metadata after Compile (ZK)." },
+      { kind: "new",      text: "Privacy Visualization tab — heuristic disclosure highlighting (not a formal verifier)." },
+      { kind: "compiler", text: "Targets Compact compiler 0.31.1 / language 0.23 (shown after Compile)." },
     ],
   },
 ];
@@ -55,6 +56,7 @@ const releases: Release[] = [
 
 const roadmap: { label: string; desc: string }[] = [
   { label: "Sponsored fees", desc: "Optional CompactLab-paid Preprod fees when a funded sponsor wallet is configured." },
+  { label: "Local Simulate tab", desc: "Offline circuit sandbox with editable witnesses — not in Community v1." },
   { label: "Keyboard shortcut panel", desc: "Full reference for editor bindings, available from the command palette." },
   { label: "Mainnet support", desc: "Deployment to Midnight Mainnet once CompactLab explicitly ships that network." },
   { label: "Shareable snippets", desc: "Generate a permalink to share a contract in a read-only view." },
@@ -215,7 +217,7 @@ export default function ChangelogPage() {
                     <Soon />
                   </div>
                   <p className="text-sm text-white/20 leading-relaxed">
-                    Preprod Deploy and Call with 1AM, cloud projects, and the Contract panel.
+                    Sponsored fees, optional local Simulate, and Mainnet — see roadmap.
                     ETA to be announced.
                   </p>
                 </div>

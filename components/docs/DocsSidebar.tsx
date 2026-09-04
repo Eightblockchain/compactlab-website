@@ -19,7 +19,7 @@ const nav: NavGroup[] = [
     items: [
       { label: "Interface Overview", href: "#interface-overview" },
       { label: "Keyboard Shortcuts", href: "#keyboard-shortcuts", soon: true },
-      { label: "File Management",    href: "#file-management", soon: true },
+      { label: "File Management",    href: "#file-management" },
     ],
   },
   {
