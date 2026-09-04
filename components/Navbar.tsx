@@ -5,19 +5,21 @@ import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useComingSoon, ComingSoonToast, TOASTS } from "./ComingSoon";
 
 const navLinks = [
   { label: "Features", href: "/#features" },
   { label: "How It Works", href: "/#how-it-works" },
   { label: "Dev Experience", href: "/#dev-experience" },
+  { label: "Access", href: "/#pricing" },
   { label: "Docs", href: "/docs" },
 ];
+
+const PLAYGROUND =
+  process.env.NEXT_PUBLIC_PLAYGROUND_URL || "http://localhost:3001";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { show, dismiss, toast } = useComingSoon();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 300, damping: 40, restDelta: 0.001 });
 
@@ -67,13 +69,19 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <button
-              onClick={() => show(TOASTS.playground)}
+            <a
+              href={`${PLAYGROUND}/login`}
+              className="text-sm text-white/50 hover:text-white transition-colors"
+            >
+              Log in
+            </a>
+            <a
+              href={`${PLAYGROUND}/signup`}
               className="text-sm font-semibold text-white px-4 py-2 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               style={{ backgroundColor: "#E95144" }}
             >
               Start Building
-            </button>
+            </a>
           </div>
 
           {/* Mobile toggle */}
@@ -113,20 +121,19 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="pt-3 border-t border-white/8 flex flex-col gap-2">
-                <button
+                <a
+                  href={`${PLAYGROUND}/signup`}
                   className="block w-full text-sm text-center font-semibold text-white px-4 py-3 rounded-sm"
                   style={{ backgroundColor: "#E95144" }}
-                  onClick={() => { setMobileOpen(false); show(TOASTS.playground); }}
+                  onClick={() => setMobileOpen(false)}
                 >
                   Start Building
-                </button>
+                </a>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      <ComingSoonToast toast={toast} onDismiss={dismiss} />
 
       {/* Scroll progress bar */}
       <motion.span

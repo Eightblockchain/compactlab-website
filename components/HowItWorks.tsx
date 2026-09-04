@@ -10,21 +10,21 @@ const steps = [
     icon: LayoutTemplate,
     title: "Start with a template",
     description:
-      "Pick from a library of production-ready Compact templates — tokens, governance, access control, private voting. Or start from scratch.",
+      "Pick Hello or Counter for Instant Deploy, or start from scratch and Compile (ZK) before Deploy.",
   },
   {
     number: "02",
     icon: FlaskConical,
-    title: "Edit and simulate",
+    title: "Edit and compile",
     description:
-      "Write your logic in the browser editor and run live simulations. Inspect public vs. private data, test edge cases, and iterate instantly — ZK proofs included.",
+      "Write Compact in the browser editor, Typecheck, then Compile (ZK). Hello and Counter also ship bundled keys so you can Deploy without a custom compile.",
   },
   {
     number: "03",
     icon: CloudUpload,
-    title: "Deploy and interact",
+    title: "Deploy and call",
     description:
-      "Connect your Midnight wallet, choose a network, and deploy with one click. Call your contract methods directly from the playground interface.",
+      "Connect the 1AM wallet on Midnight Preprod, pay fees with your tDUST, and call exported circuits from the Contract panel. Real proofs, real ledger — not a local sandbox.",
   },
 ];
 

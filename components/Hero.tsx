@@ -4,7 +4,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import DemoModal from "./DemoModal";
-import { useComingSoon, ComingSoonToast, TOASTS } from "./ComingSoon";
+
+const PLAYGROUND =
+  process.env.NEXT_PUBLIC_PLAYGROUND_URL || "http://localhost:3001";
 
 type CLine = { type: string; content?: string; rest?: string };
 
@@ -116,12 +118,10 @@ function CodeLine({ line, index }: { line: CLine; index: number }) {
 
 export default function Hero() {
   const [demoOpen, setDemoOpen] = useState(false);
-  const { show, dismiss, toast } = useComingSoon();
 
   return (
     <>
     <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
-    <ComingSoonToast toast={toast} onDismiss={dismiss} />
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 pb-10 sm:pt-20 sm:pb-16">
       {/* Subtle noise texture */}
       <div
@@ -215,7 +215,7 @@ export default function Hero() {
               className="text-lg text-white/50 leading-relaxed max-w-md"
             >
               A browser-based playground for learning and building with Compact.
-              Write, simulate, and deploy — no setup required.
+              Sign up, Compile, then Deploy and Call on Midnight Preprod with 1AM.
             </motion.p>
 
             <motion.div
@@ -224,14 +224,14 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="flex flex-wrap items-center gap-3"
             >
-              <button
-                onClick={() => show(TOASTS.playground)}
+              <a
+                href={`${PLAYGROUND}/signup`}
                 className="group inline-flex items-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 style={{ backgroundColor: "#E95144" }}
               >
                 Start Building
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </a>
               <button
                 onClick={() => setDemoOpen(true)}
                 className="group inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-white border border-white/15 hover:border-white/30 px-6 py-3 rounded-sm transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
@@ -279,7 +279,7 @@ export default function Hero() {
                 <div className="ml-auto flex items-center gap-1.5 px-2 py-0.5 rounded border border-white/10">
                   <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "#E95144" }} />
                   <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "#E95144" }}>
-                    Simulating
+                    Preprod
                   </span>
                 </div>
               </div>

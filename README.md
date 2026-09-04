@@ -1,6 +1,6 @@
 # Compact Lab — Landing Page
 
-Marketing and documentation site for [Compact Lab](https://compactlab.dev) — a browser-based IDE for writing, simulating, and deploying [Compact](https://docs.midnight.network/compact) smart contracts on the [Midnight](https://midnight.network) blockchain.
+Marketing and documentation site for [Compact Lab](https://compactlab.dev) — a browser-based playground for writing, compiling, and deploying [Compact](https://docs.midnight.network/compact) smart contracts on Midnight Preprod.
 
 ## Tech Stack
 

@@ -3,25 +3,18 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useComingSoon, ComingSoonToast, TOASTS } from "./ComingSoon";
+
+const PLAYGROUND =
+  process.env.NEXT_PUBLIC_PLAYGROUND_URL || "http://localhost:3001";
 
 export default function CTA() {
-  const { show, dismiss, toast } = useComingSoon();
   return (
     <section className="py-16 sm:py-28 lg:py-36 border-b border-white/6 relative overflow-hidden">
-      {/* Animated ambient glow */}
       <motion.div
         aria-hidden="true"
         animate={{ scale: [1, 1.15, 1], opacity: [0.04, 0.08, 0.04] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         className="absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(233,81,68,1) 0%, transparent 70%)" }}
-      />
-      <motion.div
-        aria-hidden="true"
-        animate={{ scale: [1, 1.1, 1], opacity: [0.03, 0.06, 0.03] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute -top-24 -left-24 w-[400px] h-[400px] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(233,81,68,1) 0%, transparent 70%)" }}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,21 +34,20 @@ export default function CTA() {
               Midnight <span style={{ color: "#E95144" }}>today.</span>
             </h2>
             <p className="mt-5 text-white/45 text-lg leading-relaxed max-w-md">
-              Join developers already building privacy-preserving smart contracts
-              on the Midnight blockchain. Free during early access.
+              Create a free CompactLab account, then Instant Deploy on Preprod with 1AM.
             </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:items-end flex-shrink-0">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <button
-                onClick={() => show(TOASTS.playground)}
-                className="group inline-flex items-center gap-2.5 text-base font-semibold text-white px-8 py-4 rounded-sm transition-opacity duration-200 hover:opacity-90 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black animate-glow-ring"
+              <a
+                href={`${PLAYGROUND}/signup`}
+                className="group inline-flex items-center gap-2.5 text-base font-semibold text-white px-8 py-4 rounded-sm transition-opacity duration-200 hover:opacity-90 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 style={{ backgroundColor: "#E95144" }}
               >
                 Launch Playground
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </a>
             </motion.div>
             <Link
               href="/docs"
@@ -66,7 +58,6 @@ export default function CTA() {
           </div>
         </motion.div>
       </div>
-      <ComingSoonToast toast={toast} onDismiss={dismiss} />
     </section>
   );
 }

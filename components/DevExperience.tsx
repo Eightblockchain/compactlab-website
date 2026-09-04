@@ -40,8 +40,8 @@ export circuit takeDown(): [] {
 }`;
 
 const highlights = [
-  { label: "No local setup", sublabel: "Runs entirely in your browser", icon: Globe },
-  { label: "Instant feedback", sublabel: "Simulate circuits in milliseconds", icon: Clock3 },
+  { label: "No local toolchain", sublabel: "Browser editor; Compile runs on CompactLab", icon: Globe },
+  { label: "On-chain Call", sublabel: "Prove in 1AM, then read Preprod ledger", icon: Clock3 },
   { label: "Zero boilerplate", sublabel: "Write contracts, not config files", icon: Package },
 ];
 

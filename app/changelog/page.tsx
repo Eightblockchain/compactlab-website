@@ -38,15 +38,15 @@ const releases: Release[] = [
     date: "April 2, 2026",
     tag: "latest",
     summary:
-      "Initial public launch of Midnight Compact Lab — a browser-based IDE for writing, simulating, and deploying Compact smart contracts.",
+      "Initial public launch of Midnight Compact Lab — a browser-based playground for writing, compiling, and deploying Compact smart contracts.",
     changes: [
       { kind: "new",      text: "Monaco-based code editor with Compact syntax highlighting (keywords, types, witnesses, circuits)." },
       { kind: "new",      text: "Live compiler error markers with inline diagnostics." },
       { kind: "new",      text: "Starter templates: Private Counter, Bulletin Board, ZK Loan." },
       { kind: "new",      text: "Output panel displaying circuit statistics (k-parameter, constraint rows) and witness declarations." },
       { kind: "new",      text: "Privacy Visualization layer — colour-coded ZK proof inspector (public vs. shielded expressions)." },
-      { kind: "new",      text: "Privacy-first architecture: all code processing happens client-side, no source files are transmitted." },
-      { kind: "compiler", text: "Ships with Compact compiler ≥ 0.20 (bundled as WebAssembly)." },
+      { kind: "new",      text: "Cloud projects: signed-in workspaces sync to CompactLab so you can resume later." },
+      { kind: "compiler", text: "Targets Compact compiler 0.30 (shown after Compile)." },
     ],
   },
 ];
@@ -54,14 +54,11 @@ const releases: Release[] = [
 /* ─── coming up ───────────────────────────────────────────────── */
 
 const roadmap: { label: string; desc: string }[] = [
-  { label: "Multi-file projects",     desc: "Import, export, and manage multiple .compact files in a single workspace." },
-  { label: "Testnet deployment",      desc: "One-click contract deployment to Midnight Testnet, directly from the browser." },
-  { label: "Wallet integration",      desc: "Connect a Midnight-compatible wallet to sign and submit transactions." },
-  { label: "Simulation sandbox",      desc: "Step-through circuit execution with editable witness inputs and ledger state inspection." },
+  { label: "Sponsored fees", desc: "Optional CompactLab-paid Preprod fees when a funded sponsor wallet is configured." },
   { label: "Keyboard shortcut panel", desc: "Full reference for editor bindings, available from the command palette." },
-  { label: "Mainnet support",         desc: "Deployment to Midnight Mainnet once the network reaches stable release." },
-  { label: "Shareable snippets",      desc: "Generate a permalink to share a contract in a read-only view." },
-  { label: "More templates",          desc: "Shielded token transfer, DAO voting, identity proof, and more." },
+  { label: "Mainnet support", desc: "Deployment to Midnight Mainnet once CompactLab explicitly ships that network." },
+  { label: "Shareable snippets", desc: "Generate a permalink to share a contract in a read-only view." },
+  { label: "More templates", desc: "Additional Instant Deploy templates beyond Hello and Counter." },
 ];
 
 /* ─── helpers ─────────────────────────────────────────────────── */
@@ -218,7 +215,7 @@ export default function ChangelogPage() {
                     <Soon />
                   </div>
                   <p className="text-sm text-white/20 leading-relaxed">
-                    Simulation sandbox, multi-file projects, and Testnet deployment.
+                    Preprod Deploy and Call with 1AM, cloud projects, and the Contract panel.
                     ETA to be announced.
                   </p>
                 </div>

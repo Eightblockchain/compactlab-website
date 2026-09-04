@@ -29,16 +29,16 @@ export default function DocsContent() {
       <DocH2 id="introduction">Introduction</DocH2>
       <P>
         <strong className="text-white/75">Midnight Compact Lab</strong> is a
-        browser-based integrated development environment for{" "}
+        browser-based playground for{" "}
         <strong className="text-white/75">Compact</strong> — the smart contract
-        language of the Midnight blockchain. You write, test, and deploy
-        privacy-preserving contracts entirely in your browser, with no local
-        installation required.
+        language of the Midnight blockchain. Create a free Community account,
+        write contracts in the editor, Compile (ZK), then Deploy and Call on
+        Midnight Preprod with the 1AM wallet. No local Compact toolchain is required.
       </P>
       <P>
-        The Lab handles the Compact compiler, local simulation runtime, ZK proof
-        visualization, and Midnight network connectivity so you can focus
-        exclusively on writing contract logic.
+        The Lab runs the Compact compiler, stores your projects in the cloud,
+        and talks to Midnight Preprod so you can prove and submit transactions
+        from the browser. Mainnet is not supported in v1.
       </P>
 
       {/* ── What is Compact? ─────────────────────────────────────── */}
@@ -76,12 +76,12 @@ export default function DocsContent() {
       {/* ── Quick Start ──────────────────────────────────────────── */}
 
       <DocH2 id="quick-start">Quick Start</DocH2>
-      <P>No sign-up is required for the playground. Open Compact Lab and:</P>
+      <P>Create a free Community account, then open the playground:</P>
       <ol className="list-decimal list-inside text-white/50 text-sm leading-relaxed space-y-2 mb-6 pl-1">
-        <li>Choose a starter template from the Templates panel — or start from a blank file.</li>
+        <li>Choose a starter template — Hello and Counter support Instant Deploy.</li>
         <li>Write your Compact contract in the editor. Syntax errors are highlighted inline.</li>
-        <li>Click <strong className="text-white/75">Simulate</strong> to run the contract locally and inspect circuit output.</li>
-        <li>When ready, connect your wallet and deploy to Midnight Testnet.</li>
+        <li>Typecheck, then <strong className="text-white/75">Compile (ZK)</strong> for custom contracts.</li>
+        <li>Connect <strong className="text-white/75">1AM</strong> on Midnight Preprod, Deploy, then Call circuits from the Contract panel.</li>
       </ol>
 
       {/* ── Interface Overview ───────────────────────────────────── */}
@@ -96,7 +96,7 @@ export default function DocsContent() {
           },
           {
             label: "Output Panel",
-            desc:  "Displays compiler output, circuit statistics (constraint rows, k-parameter), witness declarations, and simulation results.",
+            desc:  "Displays compiler output, circuit metadata, network logs, and ZK artifact listings after Compile.",
           },
           {
             label: "File Explorer",
@@ -281,23 +281,28 @@ owner = disclose(persistentHash<Bytes<32>>(secretKey()));
         </table>
       </div>
 
-      {/* ── Simulation ───────────────────────────────────────────── */}
+      {/* ── Contract panel ───────────────────────────────────────── */}
 
       <DocH2 id="simulation">
-        Simulating Contracts <Soon />
+        Calling Contracts
       </DocH2>
       <P>
-        The simulation panel lets you invoke circuits locally, inspect ledger state
-        changes, and view compiler-generated statistics — all without connecting to
-        any network.
+        After a successful Deploy, open the <strong className="text-white/75">Contract</strong>{" "}
+        panel. Connect 1AM on Preprod, then Call exported circuits. Proofs run in the
+        wallet; CompactLab then reads public ledger state from the indexer. You can
+        also Join another contract by pasting an address deployed from the same project.
       </P>
+      <CalloutBox type="info">
+        CompactLab v1 does not ship a local Simulate sandbox. Typecheck is offline;
+        Deploy and Call are on-chain on Preprod.
+      </CalloutBox>
 
       <DocH3 id="circuit-output">
-        Circuit Output <Soon />
+        Circuit Output
       </DocH3>
       <P>
-        After compilation, the output panel will display circuit statistics in this
-        format:
+        After Compile (ZK), the output panel lists generated circuits and artifacts.
+        Example:
       </P>
       <CodeBlock>
 {`Compilation successful
@@ -315,43 +320,43 @@ witness secretKey: shielded ✓`}
       {/* ── Privacy Inspector ────────────────────────────────────── */}
 
       <DocH2 id="privacy-inspector">
-        Privacy Inspector <Soon />
+        Privacy Inspector
       </DocH2>
       <P>
-        The Privacy Inspector is a visual tool for understanding exactly what your
-        ZK circuits reveal on-chain. It colour-codes each expression in your
-        contract — green for private (stays on device), red for disclosed (goes
-        on-chain).
+        The Privacy tab in the playground highlights Compact disclosure flows
+        (heuristic, not a formal verifier). Use it to see which values stay
+        off-chain in witnesses versus what may be disclosed to the public ledger.
       </P>
-      <P>This panel is currently under development and will ship in a future release.</P>
 
       {/* ── Deploying ────────────────────────────────────────────── */}
 
       <DocH2 id="testnet">
-        Deploying to Testnet <Soon />
+        Deploying to Preprod
       </DocH2>
       <P>
-        Full step-by-step deployment guides for Midnight Testnet and Mainnet are
-        coming as the network moves toward stable releases.
+        CompactLab v1 deploys to <strong className="text-white/75">Midnight Preprod</strong> with
+        the <strong className="text-white/75">1AM</strong> wallet. Compile (ZK), connect 1AM,
+        fund tDUST from the faucet if needed, then Deploy. After success, open the
+        Contract panel to Call exported circuits and read public ledger state.
       </P>
 
       <DocH3 id="mainnet">
         Deploying to Mainnet <Soon />
       </DocH3>
       <CalloutBox type="warning">
-        Smart contract bugs on Mainnet can result in permanent, irreversible loss of
-        funds. Always complete a thorough Testnet validation and an independent
-        audit before deploying to Mainnet.
+        CompactLab does not support Mainnet in v1. Always complete a thorough Preprod
+        validation and an independent audit before deploying any contract to Mainnet
+        outside this lab.
       </CalloutBox>
 
       {/* ── Templates ────────────────────────────────────────────── */}
 
       <DocH2 id="using-templates">Using Templates</DocH2>
       <P>
-        Templates are pre-written Compact contracts that demonstrate common patterns.
-        To load a template, open the Templates panel from the sidebar, hover a card,
-        and click <strong className="text-white/75">Use Template</strong>. The contract
-        is loaded directly into the editor.
+        Templates are pre-written Compact contracts. Hello and Counter support Instant
+        Deploy (bundled ZK keys). Other templates need <strong className="text-white/75">Compile (ZK)</strong>{" "}
+        before Deploy. Open Templates in the playground, hover a card, and click{" "}
+        <strong className="text-white/75">Use Template</strong>.
       </P>
 
       <DocH3 id="available-templates">Available Templates</DocH3>
@@ -400,16 +405,19 @@ witness secretKey: shielded ✓`}
       {/* ── Wallet Setup ─────────────────────────────────────────── */}
 
       <DocH2 id="wallet-setup">
-        Wallet Setup <Soon />
+        Wallet Setup
       </DocH2>
       <P>
-        Compact Lab will support connecting a Midnight-compatible wallet to sign
-        and submit transactions. A step-by-step wallet configuration guide will be
-        published once the Midnight wallet SDK reaches a stable API.
+        CompactLab v1 requires the <strong className="text-white/75">1AM</strong> wallet
+        on Midnight Preprod for Deploy and Call (ZK proving via{" "}
+        <Code>getProvingProvider</Code>). Install 1AM from{" "}
+        <a href="https://1am.xyz/" className="text-white/75 underline">1am.xyz</a>,
+        unlock on Preprod, and approve the playground origin. Lace and other Midnight
+        wallets are not supported in v1.
       </P>
       <CalloutBox type="tip">
-        For now you can use Compact Lab fully in simulation mode without connecting
-        a wallet. A wallet is only required for on-chain deployment.
+        You can Typecheck without a wallet. A funded 1AM wallet on Preprod is required
+        to Deploy or Call on-chain.
       </CalloutBox>
 
       {/* ── FAQ ──────────────────────────────────────────────────── */}
@@ -419,19 +427,19 @@ witness secretKey: shielded ✓`}
         {[
           {
             q: "Do I need to install anything?",
-            a: "No. Compact Lab runs entirely in your browser. The Compact compiler and simulation runtime are bundled as WebAssembly modules.",
+            a: "No compiler toolchain on your machine. You need a browser, a free CompactLab account, and 1AM if you want to Deploy or Call on Preprod.",
           },
           {
             q: "Is my code stored anywhere?",
-            a: "Contract code you write is processed locally in your browser. We do not store or transmit your source files unless you use an explicit share feature.",
+            a: "Projects sync to CompactLab’s cloud API when you are signed in so you can resume later. Export a zip if you want a local copy.",
           },
           {
             q: "Which Compact version is supported?",
-            a: "Compact Lab currently targets the Compact compiler at version ≥ 0.20. The active compiler version is shown in the output panel after compilation.",
+            a: "CompactLab targets Compact compiler 0.30. The version is shown after Compile.",
           },
           {
             q: "Can I use the Lab without a Midnight wallet?",
-            a: "Yes. Simulation mode is fully functional without a wallet. A wallet is only needed when deploying to Testnet or Mainnet.",
+            a: "You can write and Typecheck without a wallet. Deploy and Call require 1AM on Preprod with tDUST for Self-pay fees.",
           },
           {
             q: "Where can I find official Compact language documentation?",

@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
 import DevExperience from "@/components/DevExperience";
+import Pricing from "@/components/Pricing";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
@@ -52,7 +53,7 @@ const jsonLd = {
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Web",
       description:
-        "A browser-based IDE for writing, simulating, and deploying Compact smart contracts on the Midnight blockchain.",
+        "A browser-based playground for writing, compiling, and deploying Compact smart contracts on Midnight Preprod.",
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
   ],
@@ -70,6 +71,7 @@ export default function Home() {
       <Features />
       <HowItWorks />
       <DevExperience />
+      <Pricing />
       <CTA />
       <Footer />
     </main>

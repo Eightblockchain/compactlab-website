@@ -34,22 +34,22 @@ const nav: NavGroup[] = [
     ],
   },
   {
-    title: "Simulation",
+    title: "Contract panel",
     items: [
-      { label: "Running Locally",  href: "#simulation",    soon: true },
-      { label: "Circuit Output",   href: "#circuit-output", soon: true },
+      { label: "Call on Preprod", href: "#simulation" },
+      { label: "Circuit Output",  href: "#circuit-output" },
     ],
   },
   {
     title: "Privacy Inspector",
     items: [
-      { label: "Visualizing ZK Proofs", href: "#privacy-inspector", soon: true },
+      { label: "Visualizing ZK Proofs", href: "#privacy-inspector" },
     ],
   },
   {
     title: "Deploying",
     items: [
-      { label: "Testnet", href: "#testnet", soon: true },
+      { label: "Preprod", href: "#testnet" },
       { label: "Mainnet", href: "#mainnet", soon: true },
     ],
   },
@@ -63,7 +63,7 @@ const nav: NavGroup[] = [
   {
     title: "Wallet Setup",
     items: [
-      { label: "Connecting a Wallet", href: "#wallet-setup", soon: true },
+      { label: "Connecting a Wallet", href: "#wallet-setup" },
     ],
   },
   {

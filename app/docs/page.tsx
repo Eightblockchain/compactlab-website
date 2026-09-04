@@ -14,11 +14,11 @@ import DocsSidebar from "@/components/docs/DocsSidebar";
 export const metadata: Metadata = {
   title: "Docs",
   description:
-    "Learn how to write, simulate, and deploy Compact smart contracts in the browser-based Midnight playground.",
+    "Learn how to write, compile, and deploy Compact smart contracts in the CompactLab playground on Midnight Preprod.",
   alternates: { canonical: "https://compactlab.dev/docs" },
   openGraph: {
     title: "Docs | Compact Lab",
-    description: "Learn how to write, simulate, and deploy Compact smart contracts in the browser-based Midnight playground.",
+    description: "Learn how to write, compile, and deploy Compact smart contracts in the CompactLab playground on Midnight Preprod.",
     url: "https://compactlab.dev/docs",
   },
 };

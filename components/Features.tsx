@@ -13,9 +13,9 @@ const features = [
   },
   {
     icon: Zap,
-    title: "Live Simulation",
+    title: "Compile and Call",
     description:
-      "Execute contract circuits instantly. See inputs, outputs, and witness generation without spinning up a local node.",
+      "Typecheck, then Compile (ZK). After Deploy, Call exported circuits from the Contract panel — proofs in 1AM, ledger on Preprod.",
     highlight: false,
   },
   {
@@ -29,14 +29,14 @@ const features = [
     icon: Rocket,
     title: "One-click Deploy",
     description:
-      "Deploy to the Midnight testnet or mainnet with a single click. Connect your wallet and ship without any CLI setup.",
+      "Deploy to Midnight Preprod with 1AM. Hello and Counter support Instant Deploy; custom contracts Compile (ZK) first. Mainnet is not in v1.",
     highlight: false,
   },
   {
     icon: LayoutTemplate,
     title: "Built-in Templates",
     description:
-      "Start from battle-tested templates — tokens, voting systems, access control, and more. Go from zero to deployed in minutes.",
+      "Start from Hello or Counter for Instant Deploy, or write your own Compact and Compile (ZK). Signup is required.",
     highlight: false,
   },
 ];
