@@ -95,16 +95,16 @@ export default function TermsOfService() {
 
         <Section title="2. Description of Service">
           <p>
-            Midnight Compact Lab is a browser-based integrated development environment
-            (IDE) for writing, simulating, and deploying smart contracts written in
-            Compact — the zero-knowledge smart contract language of the Midnight
-            blockchain. The Service includes:
+            Midnight Compact Lab is a browser-based playground for writing, compiling,
+            and deploying smart contracts written in Compact — the zero-knowledge
+            smart contract language of the Midnight blockchain. In v1 the Service
+            includes:
           </p>
           <ul className="list-disc list-inside space-y-2 pl-1">
             <li>A code editor with Compact language syntax support.</li>
-            <li>A local simulation environment for testing contract logic.</li>
-            <li>A privacy visualization layer for ZK proof inspection.</li>
-            <li>Integration tooling for deployment to Midnight Testnet and Mainnet.</li>
+            <li>A Typecheck and Compile (ZK) path for Compact contracts.</li>
+            <li>A privacy visualization layer for ZK disclosure inspection (heuristic).</li>
+            <li>Integration tooling for deployment and calls on Midnight Preprod via 1AM. Mainnet is not offered in v1.</li>
             <li>Starter templates and example contracts.</li>
           </ul>
           <p>
@@ -185,8 +185,8 @@ export default function TermsOfService() {
 
         <Section title="6. Blockchain and Financial Risk">
           <p>
-            The Lab facilitates deployment to public blockchains, including Midnight
-            Testnet and Mainnet. You acknowledge and accept that:
+            The Lab facilitates deployment to Midnight Preprod, a public test network.
+            Mainnet deployment is not part of CompactLab v1. You acknowledge and accept that:
           </p>
           <ul className="list-disc list-inside space-y-2 pl-1">
             <li>
@@ -206,8 +206,9 @@ export default function TermsOfService() {
             </li>
           </ul>
           <p>
-            We strongly recommend thorough testing on Testnet and independent security
-            audits before deploying contracts that handle real value.
+            We strongly recommend thorough testing on Preprod and independent security
+            audits before deploying contracts that handle real value, including any
+            Mainnet deployment you perform outside this lab.
           </p>
         </Section>
 
@@ -221,7 +222,7 @@ export default function TermsOfService() {
           <p>
             We do not warrant that the Service will be uninterrupted, error-free, or
             free of harmful components. We do not warrant the correctness, accuracy, or
-            reliability of any compiler output, simulation result, or deployment outcome
+            reliability of any compiler output, proof, or deployment outcome
             produced by the Service.
           </p>
         </Section>

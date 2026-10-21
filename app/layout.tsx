@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | Compact Lab",
   },
   description:
-    "Write, simulate, and deploy Compact smart contracts on the Midnight blockchain — entirely in your browser. No setup, no installation required.",
+    "Write, compile, and deploy Compact smart contracts on Midnight Preprod — a free browser playground. Signup required; 1AM wallet for Deploy and Call.",
   keywords: [
     "Midnight", "Compact", "CompactLab", "blockchain", "smart contracts",
     "Web3", "playground", "IDE", "zero-knowledge", "ZK proofs", "privacy",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Compact Lab",
     title: "Compact Lab — Browser IDE for Midnight Smart Contracts",
     description:
-      "Write, simulate, and deploy Compact smart contracts on the Midnight blockchain — entirely in your browser. No setup required.",
+      "Write, compile, and deploy Compact smart contracts on Midnight Preprod. Signup required; 1AM wallet for Deploy and Call.",
     locale: "en_US",
     images: [
       {
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     creator: "@CompactLab",
     title: "Compact Lab — Browser IDE for Midnight Smart Contracts",
     description:
-      "Write, simulate, and deploy Compact smart contracts on the Midnight blockchain — entirely in your browser.",
+      "Write, compile, and deploy Compact smart contracts on Midnight Preprod with 1AM.",
     images: ["/cl-icon.png"],
   },
 };
