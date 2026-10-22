@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SOURCE_URL } from "@/lib/site";
 
 type FooterLink = { label: string; href: string; external?: true };
 type FooterGroup = { title: string; links: FooterLink[] };
@@ -34,7 +35,8 @@ const footerLinks: FooterGroup[] = [
   {
     title: "Community",
     links: [
-      { label: "GitHub",      href: "https://github.com/midnightntwrk",             external: true },
+      { label: "CompactLab on GitHub", href: SOURCE_URL,                          external: true },
+      { label: "Midnight GitHub", href: "https://github.com/midnightntwrk",         external: true },
       { label: "Twitter / X", href: "https://x.com/MidnightNtwrk",                  external: true },
       { label: "Discord",     href: "https://discord.com/invite/midnightnetwork",    external: true },
       { label: "Blog",        href: "https://midnight.network/blog",                 external: true },

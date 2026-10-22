@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { PLAYGROUND_URL } from "@/lib/site";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
-const PLAYGROUND =
-  process.env.NEXT_PUBLIC_PLAYGROUND_URL || "http://localhost:3001";
 
 type Plan = {
   slug: string;
@@ -80,7 +79,7 @@ export default function Pricing() {
               ))}
             </ul>
             <a
-              href={`${PLAYGROUND}/signup`}
+              href={`${PLAYGROUND_URL}/signup`}
               className="inline-flex text-sm font-semibold text-white px-5 py-3 rounded-sm"
               style={{ backgroundColor: "#E95144" }}
             >
