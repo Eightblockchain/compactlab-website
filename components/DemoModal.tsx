@@ -144,13 +144,13 @@ export default function DemoModal({ open, onClose }: DemoModalProps) {
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-5">
                     <div
                       className="w-16 h-16 rounded-full flex items-center justify-center border border-white/10"
-                      style={{ backgroundColor: "rgba(233,81,68,0.1)" }}
+                      style={{ backgroundColor: "color-mix(in srgb, var(--color-brand) 10%, transparent)" }}
                     >
                       <svg
                         viewBox="0 0 24 24"
                         fill="currentColor"
                         className="w-7 h-7 translate-x-0.5"
-                        style={{ color: "#E95144" }}
+                        style={{ color: "var(--color-brand)" }}
                         aria-hidden="true"
                       >
                         <path d="M8 5v14l11-7z" />

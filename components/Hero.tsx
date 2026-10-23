@@ -56,9 +56,9 @@ function CodeLine({ line, index }: { line: CLine; index: number }) {
           <span className="text-white/50">export enum </span>
           <span className="text-white/85">Status </span>
           <span className="text-white/40">{"{ "}</span>
-          <span style={{ color: "#E95144" }}>OPEN</span>
+          <span style={{ color: "var(--color-brand)" }}>OPEN</span>
           <span className="text-white/40">, </span>
-          <span style={{ color: "#E95144" }}>PAUSED</span>
+          <span style={{ color: "var(--color-brand)" }}>PAUSED</span>
           <span className="text-white/40">{" }"}</span>
         </span>
       );
@@ -66,14 +66,14 @@ function CodeLine({ line, index }: { line: CLine; index: number }) {
       return (
         <span>
           <span className="text-white/50">{line.content}</span>
-          <span style={{ color: "#E95144" }}>{line.rest}</span>
+          <span style={{ color: "var(--color-brand)" }}>{line.rest}</span>
         </span>
       );
     if (line.type === "witness") {
       const after = (line.content ?? "").replace("witness ", "");
       return (
         <span>
-          <span style={{ color: "#E95144" }}>witness </span>
+          <span style={{ color: "var(--color-brand)" }}>witness </span>
           <span className="text-white/60">{after}</span>
         </span>
       );
@@ -141,7 +141,7 @@ export default function Hero() {
           left: "-10%",
           width: "60%",
           height: "70%",
-          background: "radial-gradient(ellipse at center, rgba(233,81,68,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, color-mix(in srgb, var(--color-brand) 6%, transparent) 0%, transparent 70%)",
         }}
       />
       <div
@@ -151,7 +151,7 @@ export default function Hero() {
           right: "-5%",
           width: "50%",
           height: "50%",
-          background: "radial-gradient(ellipse at center, rgba(233,81,68,0.04) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, color-mix(in srgb, var(--color-brand) 4%, transparent) 0%, transparent 70%)",
         }}
       />
 
@@ -171,7 +171,7 @@ export default function Hero() {
             >
               <span
                 className="w-1.5 h-1.5 rounded-full animate-pulse"
-                style={{ backgroundColor: "#E95144" }}
+                style={{ backgroundColor: "var(--color-brand)" }}
               />
               <span className="text-xs font-semibold text-white/50 uppercase tracking-widest">
                 Early Access
@@ -198,7 +198,7 @@ export default function Hero() {
                         visible: { y: 0, opacity: 1, transition: { duration: 0.65, ease: [0.33, 1, 0.68, 1] } },
                       }}
                       className="inline-block"
-                      style={line.accent ? { color: "#E95144" } : undefined}
+                      style={line.accent ? { color: "var(--color-brand)" } : undefined}
                     >
                       {word}
                     </motion.span>
@@ -225,8 +225,8 @@ export default function Hero() {
             >
               <a
                 href={`${PLAYGROUND_URL}/signup`}
-                className="group inline-flex items-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                style={{ backgroundColor: "#E95144" }}
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                style={{ backgroundColor: "var(--color-brand)" }}
               >
                 Start Building
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -276,8 +276,8 @@ export default function Hero() {
                   PrivateCounter.compact
                 </span>
                 <div className="ml-auto flex items-center gap-1.5 px-2 py-0.5 rounded border border-white/10">
-                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "#E95144" }} />
-                  <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "#E95144" }}>
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "var(--color-brand)" }} />
+                  <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--color-brand)" }}>
                     Preprod
                   </span>
                 </div>
@@ -289,7 +289,7 @@ export default function Hero() {
                 <div
                   aria-hidden="true"
                   className="animate-scan pointer-events-none z-10"
-                  style={{ background: "linear-gradient(90deg, transparent 0%, rgba(233,81,68,0.7) 50%, transparent 100%)" }}
+                  style={{ background: "linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--color-brand) 70%, transparent) 50%, transparent 100%)" }}
                 />
                 {codeLines.map((line, i) => (
                   <CodeLine key={i} line={line} index={i} />
@@ -310,7 +310,7 @@ export default function Hero() {
                   className="font-mono text-xs space-y-1.5"
                 >
                   <div className="flex items-center gap-2 text-white/50">
-                    <span style={{ color: "#E95144" }}>✓</span> Compiled (2 circuits)
+                    <span style={{ color: "var(--color-brand)" }}>✓</span> Compiled (2 circuits)
                   </div>
                   <div className="flex items-center gap-2 text-white/50">
                     <span className="text-white/30">→</span> circuit <span className="text-white/80">increment</span> (k=10, rows=29)
@@ -319,7 +319,7 @@ export default function Hero() {
                     <span className="text-white/30">→</span> circuit <span className="text-white/80">pause</span> (k=12, rows=41)
                   </div>
                   <div className="flex items-center gap-2 text-white/50">
-                    <span style={{ color: "#E95144" }}>›</span> witness <span className="text-white/70">secretKey</span>: shielded ✓
+                    <span style={{ color: "var(--color-brand)" }}>›</span> witness <span className="text-white/70">secretKey</span>: shielded ✓
                   </div>
                   <div className="text-white/25">Ready to deploy · Midnight Preprod</div>
                 </motion.div>

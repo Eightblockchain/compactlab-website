@@ -124,13 +124,13 @@ export default function DocsSidebar() {
                         ? "font-medium"
                         : "text-white/40 hover:text-white/80",
                     ].join(" ")}
-                    style={isActive ? { color: "#E95144" } : undefined}
+                    style={isActive ? { color: "var(--color-brand)" } : undefined}
                   >
                     {/* Active indicator bar */}
                     {isActive && (
                       <span
                         className="mr-2 w-0.5 h-4 rounded-full shrink-0"
-                        style={{ backgroundColor: "#E95144" }}
+                        style={{ backgroundColor: "var(--color-brand)" }}
                       />
                     )}
                     {item.label}
@@ -138,8 +138,8 @@ export default function DocsSidebar() {
                       <span
                         className="ml-1.5 text-[9px] font-mono font-semibold px-1 py-0.5 rounded"
                         style={{
-                          backgroundColor: "rgba(233,81,68,0.1)",
-                          color: "#E95144",
+                          backgroundColor: "color-mix(in srgb, var(--color-brand) 10%, transparent)",
+                          color: "var(--color-brand)",
                         }}
                       >
                         soon

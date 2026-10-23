@@ -52,7 +52,7 @@ export default function DocsContent() {
           target="_blank"
           rel="noopener noreferrer"
           className="underline underline-offset-2 hover:text-white/80 transition-colors"
-          style={{ color: "#E95144" }}
+          style={{ color: "var(--color-brand)" }}
         >
           Midnight blockchain
         </a>
@@ -104,7 +104,7 @@ export default function DocsContent() {
           },
         ].map(({ label, desc }) => (
           <div key={label} className="flex gap-4 p-4 rounded-lg border border-white/8 bg-white/[0.02]">
-            <div className="w-1 rounded-full shrink-0" style={{ backgroundColor: "#E95144", opacity: 0.6 }} />
+            <div className="w-1 rounded-full shrink-0" style={{ backgroundColor: "var(--color-brand)", opacity: 0.6 }} />
             <div>
               <p className="text-sm font-medium text-white/80 mb-1">{label}</p>
               <p className="text-xs text-white/40 leading-relaxed">{desc}</p>
@@ -274,7 +274,7 @@ owner = disclose(persistentHash<Bytes<32>>(secretKey()));
               ["Vector<N, T>",       "Fixed-length array of N elements of type T"],
             ].map(([type, desc]) => (
               <tr key={type} className="border-b border-white/5">
-                <td className="py-2.5 pr-8" style={{ color: "#E95144" }}>{type}</td>
+                <td className="py-2.5 pr-8" style={{ color: "var(--color-brand)" }}>{type}</td>
                 <td className="py-2.5 text-white/40">{desc}</td>
               </tr>
             ))}
@@ -394,7 +394,7 @@ witness secretKey: shielded ✓`}
             {!s && (
               <code
                 className="font-mono text-xs px-1.5 py-0.5 rounded"
-                style={{ backgroundColor: "rgba(255,255,255,0.07)", color: "#E95144" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.07)", color: "var(--color-brand)" }}
               >
                 {file}
               </code>

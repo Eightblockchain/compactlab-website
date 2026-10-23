@@ -56,7 +56,7 @@ export default function TermsOfService() {
         <div className="mb-14">
           <div
             className="inline-block text-xs font-mono font-semibold px-2.5 py-1 rounded mb-5"
-            style={{ backgroundColor: "#E95144", color: "#fff" }}
+            style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
           >
             Legal
           </div>
@@ -260,7 +260,7 @@ export default function TermsOfService() {
             <Link
               href="/privacy"
               className="underline underline-offset-2 hover:text-white/80 transition-colors"
-              style={{ color: "#E95144" }}
+              style={{ color: "var(--color-brand)" }}
             >
               Privacy Policy
             </Link>
@@ -312,7 +312,7 @@ export default function TermsOfService() {
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
                 className="hover:text-white/80 transition-colors"
-                style={{ color: "#E95144" }}
+                style={{ color: "var(--color-brand)" }}
               >
                 {CONTACT_EMAIL}
               </a>

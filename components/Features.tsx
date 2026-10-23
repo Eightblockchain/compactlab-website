@@ -61,7 +61,7 @@ const itemVariants = {
 function FeatureCard({ feature, isLast }: { feature: Feature; isLast: boolean }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const glow = useMotionTemplate`radial-gradient(240px circle at ${mouseX}px ${mouseY}px, rgba(233,81,68,0.09), transparent 70%)`;
+  const glow = useMotionTemplate`radial-gradient(240px circle at ${mouseX}px ${mouseY}px, color-mix(in srgb, var(--color-brand) 9%, transparent), transparent 70%)`;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -79,7 +79,7 @@ function FeatureCard({ feature, isLast }: { feature: Feature; isLast: boolean })
       className={`relative group p-6 sm:p-8 bg-black hover:bg-[#0a0a0a] transition-colors duration-200 cursor-default ${
         feature.highlight ? "border-l-2" : ""
       } ${isLast ? "sm:col-span-2 lg:col-span-1" : ""}`}
-      style={feature.highlight ? { borderLeftColor: "#E95144" } : {}}
+      style={feature.highlight ? { borderLeftColor: "var(--color-brand)" } : {}}
     >
       {/* Mouse-tracking spotlight glow */}
       <motion.div
@@ -91,7 +91,7 @@ function FeatureCard({ feature, isLast }: { feature: Feature; isLast: boolean })
       {feature.highlight && (
         <span
           className="absolute top-8 right-8 text-[10px] font-bold uppercase tracking-widest px-2 py-0.5"
-          style={{ color: "#E95144", backgroundColor: "rgba(233,81,68,0.08)", border: "1px solid rgba(233,81,68,0.2)" }}
+          style={{ color: "var(--color-brand)", backgroundColor: "color-mix(in srgb, var(--color-brand) 8%, transparent)", border: "1px solid color-mix(in srgb, var(--color-brand) 20%, transparent)" }}
         >
           Unique
         </span>
@@ -105,7 +105,7 @@ function FeatureCard({ feature, isLast }: { feature: Feature; isLast: boolean })
       >
         <Icon
           className="w-5 h-5"
-          style={feature.highlight ? { color: "#E95144" } : { color: "rgba(255,255,255,0.4)" }}
+          style={feature.highlight ? { color: "var(--color-brand)" } : { color: "rgba(255,255,255,0.4)" }}
         />
       </motion.div>
 

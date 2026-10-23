@@ -81,7 +81,7 @@ export default function Pricing() {
             <a
               href={`${PLAYGROUND_URL}/signup`}
               className="inline-flex text-sm font-semibold text-white px-5 py-3 rounded-sm"
-              style={{ backgroundColor: "#E95144" }}
+              style={{ backgroundColor: "var(--color-brand)" }}
             >
               Open the playground
             </a>
