@@ -7,8 +7,7 @@ import Pricing from "@/components/Pricing";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
-const BASE = process.env.NEXT_PUBLIC_BASE_URL || "https://compactlab.dev";
-const PLAYGROUND_URL = process.env.NEXT_PUBLIC_PLAYGROUND_URL ?? "https://playground.compactlab.dev";
+import { BASE_URL as BASE, PLAYGROUND_URL, SOURCE_URL } from "@/lib/site";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -40,10 +39,7 @@ const jsonLd = {
         width: 3461,
         height: 648,
       },
-      sameAs: [
-        "https://github.com/midnightntwrk",
-        "https://x.com/MidnightNtwrk",
-      ],
+      sameAs: [SOURCE_URL],
     },
     {
       "@type": "SoftwareApplication",

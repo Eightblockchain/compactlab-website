@@ -3,9 +3,8 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { PLAYGROUND_URL } from "@/lib/site";
 
-const PLAYGROUND =
-  process.env.NEXT_PUBLIC_PLAYGROUND_URL || "http://localhost:3001";
 
 export default function CTA() {
   return (
@@ -41,7 +40,7 @@ export default function CTA() {
           <div className="flex flex-col gap-3 sm:items-end flex-shrink-0">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <a
-                href={`${PLAYGROUND}/signup`}
+                href={`${PLAYGROUND_URL}/signup`}
                 className="group inline-flex items-center gap-2.5 text-base font-semibold text-white px-8 py-4 rounded-sm transition-opacity duration-200 hover:opacity-90 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 style={{ backgroundColor: "#E95144" }}
               >

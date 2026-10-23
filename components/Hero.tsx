@@ -4,9 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import DemoModal from "./DemoModal";
+import { PLAYGROUND_URL } from "@/lib/site";
 
-const PLAYGROUND =
-  process.env.NEXT_PUBLIC_PLAYGROUND_URL || "http://localhost:3001";
 
 type CLine = { type: string; content?: string; rest?: string };
 
@@ -225,7 +224,7 @@ export default function Hero() {
               className="flex flex-wrap items-center gap-3"
             >
               <a
-                href={`${PLAYGROUND}/signup`}
+                href={`${PLAYGROUND_URL}/signup`}
                 className="group inline-flex items-center gap-2 text-sm font-semibold text-white px-6 py-3 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 style={{ backgroundColor: "#E95144" }}
               >
