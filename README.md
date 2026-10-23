@@ -29,8 +29,9 @@ components/
   DevExperience.tsx   # DX highlights + syntax demo
   CTA.tsx             # Call-to-action section
   Footer.tsx          # Links, legal, status
-  ComingSoon.tsx      # Coming-soon toast system
   DemoModal.tsx       # Video demo overlay
+lib/
+  site.ts             # Public URLs (site, playground, source)
 ```
 
 ## Getting Started

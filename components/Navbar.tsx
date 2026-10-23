@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { PLAYGROUND_URL } from "@/lib/site";
 
 const navLinks = [
   { label: "Features", href: "/#features" },
@@ -14,8 +15,6 @@ const navLinks = [
   { label: "Docs", href: "/docs" },
 ];
 
-const PLAYGROUND =
-  process.env.NEXT_PUBLIC_PLAYGROUND_URL || "http://localhost:3001";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -70,13 +69,13 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href={`${PLAYGROUND}/login`}
+              href={`${PLAYGROUND_URL}/login`}
               className="text-sm text-white/50 hover:text-white transition-colors"
             >
               Log in
             </a>
             <a
-              href={`${PLAYGROUND}/signup`}
+              href={`${PLAYGROUND_URL}/signup`}
               className="text-sm font-semibold text-white px-4 py-2 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               style={{ backgroundColor: "#E95144" }}
             >
@@ -122,7 +121,7 @@ export default function Navbar() {
               ))}
               <div className="pt-3 border-t border-white/8 flex flex-col gap-2">
                 <a
-                  href={`${PLAYGROUND}/signup`}
+                  href={`${PLAYGROUND_URL}/signup`}
                   className="block w-full text-sm text-center font-semibold text-white px-4 py-3 rounded-sm"
                   style={{ backgroundColor: "#E95144" }}
                   onClick={() => setMobileOpen(false)}
