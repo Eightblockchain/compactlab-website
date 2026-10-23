@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+# One deploy at a time: overlapping runs share /var/www/compactlab-website and
+# corrupt node_modules (npm ci of one run deletes it while the other prunes).
+concurrency:
+  group: deploy-website
+  cancel-in-progress: false
+
 jobs:
   deploy:
     name: Build & Deploy
