@@ -14,7 +14,7 @@ export function Soon() {
   return (
     <span
       className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ml-2 align-middle"
-      style={{ backgroundColor: "rgba(233,81,68,0.12)", color: "#E95144" }}
+      style={{ backgroundColor: "color-mix(in srgb, var(--color-brand) 12%, transparent)", color: "var(--color-brand)" }}
     >
       soon
     </span>
@@ -61,7 +61,7 @@ export function Code({ children }: { children: React.ReactNode }) {
   return (
     <code
       className="font-mono text-xs px-1.5 py-0.5 rounded"
-      style={{ backgroundColor: "rgba(255,255,255,0.07)", color: "#E95144" }}
+      style={{ backgroundColor: "rgba(255,255,255,0.07)", color: "var(--color-brand)" }}
     >
       {children}
     </code>
@@ -75,7 +75,7 @@ export function CodeBlock({ children, filename }: { children: string; filename?:
     <div className="rounded-lg border border-white/8 overflow-hidden mb-6 text-xs font-mono">
       {filename && (
         <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/8 bg-white/[0.03]">
-          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "#E95144", opacity: 0.7 }} />
+          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-brand)", opacity: 0.7 }} />
           <span className="text-white/30 text-[11px]">{filename}</span>
         </div>
       )}
@@ -92,7 +92,7 @@ type CalloutType = "info" | "warning" | "tip";
 
 const calloutConfig: Record<CalloutType, { border: string; bg: string; label: string; labelColor: string }> = {
   info:    { border: "border-white/10",       bg: "bg-white/[0.03]", label: "Note",    labelColor: "text-white/40"    },
-  warning: { border: "border-[#E95144]/30",   bg: "bg-[#E95144]/5",  label: "Warning", labelColor: "text-[#E95144]"   },
+  warning: { border: "border-brand/30",   bg: "bg-brand/5",  label: "Warning", labelColor: "text-brand"   },
   tip:     { border: "border-white/10",       bg: "bg-white/[0.03]", label: "Tip",     labelColor: "text-white/50"    },
 };
 

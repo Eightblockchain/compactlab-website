@@ -76,8 +76,8 @@ export default function Navbar() {
             </a>
             <a
               href={`${PLAYGROUND_URL}/signup`}
-              className="text-sm font-semibold text-white px-4 py-2 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-              style={{ backgroundColor: "#E95144" }}
+              className="text-sm font-semibold text-white px-4 py-2 rounded-sm transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              style={{ backgroundColor: "var(--color-brand)" }}
             >
               Start Building
             </a>
@@ -123,7 +123,7 @@ export default function Navbar() {
                 <a
                   href={`${PLAYGROUND_URL}/signup`}
                   className="block w-full text-sm text-center font-semibold text-white px-4 py-3 rounded-sm"
-                  style={{ backgroundColor: "#E95144" }}
+                  style={{ backgroundColor: "var(--color-brand)" }}
                   onClick={() => setMobileOpen(false)}
                 >
                   Start Building
@@ -138,7 +138,7 @@ export default function Navbar() {
       <motion.span
         aria-hidden="true"
         className="absolute bottom-0 left-0 right-0 h-[2px] origin-left"
-        style={{ backgroundColor: "#E95144", scaleX, willChange: "transform" }}
+        style={{ backgroundColor: "var(--color-brand)", scaleX, willChange: "transform" }}
       />
     </motion.header>
   );

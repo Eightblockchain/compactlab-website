@@ -69,8 +69,8 @@ const kindConfig: Record<ChangeKind, { label: string; bg: string; color: string 
   new:      { label: "New",      bg: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.55)" },
   improved: { label: "Improved", bg: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.55)" },
   fixed:    { label: "Fixed",    bg: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.55)" },
-  compiler: { label: "Compiler", bg: "rgba(233,81,68,0.12)",  color: "#E95144" },
-  breaking: { label: "Breaking", bg: "rgba(233,81,68,0.18)",  color: "#E95144" },
+  compiler: { label: "Compiler", bg: "color-mix(in srgb, var(--color-brand) 12%, transparent)",  color: "var(--color-brand)" },
+  breaking: { label: "Breaking", bg: "color-mix(in srgb, var(--color-brand) 18%, transparent)",  color: "var(--color-brand)" },
 };
 
 function Badge({ kind }: { kind: ChangeKind }) {
@@ -89,7 +89,7 @@ function Soon() {
   return (
     <span
       className="inline-flex items-center text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ml-2 align-middle"
-      style={{ backgroundColor: "rgba(233,81,68,0.12)", color: "#E95144" }}
+      style={{ backgroundColor: "color-mix(in srgb, var(--color-brand) 12%, transparent)", color: "var(--color-brand)" }}
     >
       soon
     </span>
@@ -117,12 +117,12 @@ export default function ChangelogPage() {
             <Link href="/" className="inline-flex items-center gap-2.5">
               <div
                 className="w-6 h-6 rounded-sm flex items-center justify-center"
-                style={{ backgroundColor: "#E95144" }}
+                style={{ backgroundColor: "var(--color-brand)" }}
               >
                 <span className="text-white font-black text-[10px] font-mono">CL</span>
               </div>
               <span className="font-semibold text-white tracking-tight text-sm">
-                Compact<span style={{ color: "#E95144" }}>Lab</span>
+                Compact<span style={{ color: "var(--color-brand)" }}>Lab</span>
               </span>
             </Link>
             <span className="text-white/15 text-sm">/</span>
@@ -142,7 +142,7 @@ export default function ChangelogPage() {
         <div className="mb-16 max-w-xl">
           <div
             className="inline-block text-xs font-mono font-semibold px-2.5 py-1 rounded mb-5"
-            style={{ backgroundColor: "#E95144", color: "#fff" }}
+            style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
           >
             Changelog
           </div>
@@ -167,7 +167,7 @@ export default function ChangelogPage() {
                     {/* Timeline dot */}
                     <div
                       className="absolute left-0 top-3 w-[11px] h-[11px] rounded-full border-2 border-black"
-                      style={{ backgroundColor: "#E95144" }}
+                      style={{ backgroundColor: "var(--color-brand)" }}
                     />
 
                     {/* Version + date */}
@@ -178,7 +178,7 @@ export default function ChangelogPage() {
                       {release.tag === "latest" && (
                         <span
                           className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded"
-                          style={{ backgroundColor: "#E95144", color: "#fff" }}
+                          style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
                         >
                           latest
                         </span>
@@ -236,7 +236,7 @@ export default function ChangelogPage() {
                   <li key={label} className="flex gap-3">
                     <div
                       className="w-1 rounded-full shrink-0 mt-1"
-                      style={{ backgroundColor: "#E95144", opacity: 0.3, minHeight: "1rem" }}
+                      style={{ backgroundColor: "var(--color-brand)", opacity: 0.3, minHeight: "1rem" }}
                     />
                     <div>
                       <p className="text-sm text-white/50 font-medium leading-snug mb-0.5">

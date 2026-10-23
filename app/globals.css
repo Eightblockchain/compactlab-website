@@ -1,9 +1,11 @@
 @import "tailwindcss";
+/* CompactLab design system (shared with playground and admin): compactlab/design-system */
+@import "../styles/compactlab-tokens.css";
 
 :root {
   --background: #000000;
   --foreground: #ffffff;
-  --accent: #E95144;
+  --accent: var(--color-brand);
   --muted: #111111;
   --border: rgba(255, 255, 255, 0.08);
 }
@@ -79,16 +81,16 @@ html {
 
 /* Glow pulse ring */
 @keyframes glow-ring {
-  0%   { box-shadow: 0 0 0 0px rgba(233, 81, 68, 0.5); }
-  70%  { box-shadow: 0 0 0 12px rgba(233, 81, 68, 0); }
-  100% { box-shadow: 0 0 0 0px rgba(233, 81, 68, 0); }
+  0%   { box-shadow: 0 0 0 0px color-mix(in srgb, var(--color-brand) 50%, transparent); }
+  70%  { box-shadow: 0 0 0 12px color-mix(in srgb, var(--color-brand) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0px color-mix(in srgb, var(--color-brand) 0%, transparent); }
 }
 .animate-glow-ring {
   animation: glow-ring 2s ease-out infinite;
 }
 
 .accent-text {
-  color: #E95144;
+  color: var(--color-brand);
 }
 
 .glass {
@@ -112,5 +114,5 @@ html {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E95144;
+  background: var(--color-brand);
 }

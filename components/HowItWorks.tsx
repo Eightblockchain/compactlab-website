@@ -65,7 +65,7 @@ export default function HowItWorks() {
           <motion.div
             aria-hidden="true"
             className="absolute top-0 bottom-0 w-px hidden sm:block origin-top"
-            style={{ left: "2.25rem", scaleY: lineScaleY, backgroundColor: "#E95144", opacity: 0.6 }}
+            style={{ left: "2.25rem", scaleY: lineScaleY, backgroundColor: "var(--color-brand)", opacity: 0.6 }}
           />
 
           <div className="flex flex-col gap-0">
@@ -83,7 +83,7 @@ export default function HowItWorks() {
                   {/* Step indicator */}
                   <div className="relative flex-shrink-0 flex flex-col items-center">
                     <motion.div
-                      whileHover={{ scale: 1.08, borderColor: "rgba(233,81,68,0.5)" }}
+                      whileHover={{ scale: 1.08, borderColor: "color-mix(in srgb, var(--color-brand) 50%, transparent)" }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
                       className="w-12 h-12 sm:w-[72px] sm:h-[72px] rounded-sm border border-white/10 flex items-center justify-center bg-[#080808] group-hover:border-white/20 transition-colors duration-300"
                     >
@@ -96,7 +96,7 @@ export default function HowItWorks() {
                     <div className="flex items-baseline gap-4 mb-3">
                       <span
                         className="text-xs font-mono font-bold uppercase tracking-widest"
-                        style={{ color: "#E95144" }}
+                        style={{ color: "var(--color-brand)" }}
                       >
                         {step.number}
                       </span>
