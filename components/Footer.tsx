@@ -51,7 +51,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-10 lg:gap-16 mb-12 sm:mb-16">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <Link href="/" className="inline-flex items-center mb-5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black" aria-label="Compact Lab — Home">
+            <Link href="/" className="inline-flex items-center mb-5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-black" aria-label="Compact Lab — Home">
               <Image src="/cl-logo.png" alt="Compact Lab logo" width={214} height={40} />
             </Link>
             <p className="text-sm text-white/30 leading-relaxed max-w-[22ch]">
@@ -97,7 +97,7 @@ export default function Footer() {
               Terms of Service
             </Link>
             <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "#E95144" }} />
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "var(--color-brand)" }} />
               <span className="text-xs text-white/25">All systems operational</span>
             </div>
           </div>

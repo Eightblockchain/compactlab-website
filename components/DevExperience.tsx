@@ -170,7 +170,7 @@ export default function DevExperience() {
                       <div className="font-semibold text-white text-sm">{item.label}</div>
                       <div className="text-xs text-white/35 mt-0.5">{item.sublabel}</div>
                     </div>
-                    <CheckCircle2 className="w-4 h-4 ml-auto flex-shrink-0" style={{ color: "#E95144" }} />
+                    <CheckCircle2 className="w-4 h-4 ml-auto flex-shrink-0" style={{ color: "var(--color-brand)" }} />
                   </motion.div>
                 );
               })}
@@ -214,7 +214,7 @@ export default function DevExperience() {
                 <span className="ml-2 text-xs text-white/30 font-mono">
                   BulletinBoard.compact
                 </span>
-                <span className="ml-auto text-[10px] font-medium" style={{ color: "#E95144" }}>
+                <span className="ml-auto text-[10px] font-medium" style={{ color: "var(--color-brand)" }}>
                   ● Compact
                 </span>
               </div>
@@ -231,7 +231,7 @@ export default function DevExperience() {
               <div className="bg-[#060606] border-t border-white/8 px-4 py-2.5">
                 <div className="flex items-center gap-4 flex-wrap">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#E95144" }} />
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--color-brand)" }} />
                     <span className="text-[11px] text-white/40 font-mono">Compiled</span>
                   </div>
                   <div className="flex items-center gap-1.5">

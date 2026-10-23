@@ -14,7 +14,7 @@ export default function CTA() {
         animate={{ scale: [1, 1.15, 1], opacity: [0.04, 0.08, 0.04] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         className="absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(233,81,68,1) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, var(--color-brand) 0%, transparent 70%)" }}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -30,7 +30,7 @@ export default function CTA() {
             </p>
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tighter leading-tight">
               Start building on<br />
-              Midnight <span style={{ color: "#E95144" }}>today.</span>
+              Midnight <span style={{ color: "var(--color-brand)" }}>today.</span>
             </h2>
             <p className="mt-5 text-white/45 text-lg leading-relaxed max-w-md">
               Create a free CompactLab account, then Instant Deploy on Preprod with 1AM.
@@ -41,8 +41,8 @@ export default function CTA() {
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <a
                 href={`${PLAYGROUND_URL}/signup`}
-                className="group inline-flex items-center gap-2.5 text-base font-semibold text-white px-8 py-4 rounded-sm transition-opacity duration-200 hover:opacity-90 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E95144] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                style={{ backgroundColor: "#E95144" }}
+                className="group inline-flex items-center gap-2.5 text-base font-semibold text-white px-8 py-4 rounded-sm transition-opacity duration-200 hover:opacity-90 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                style={{ backgroundColor: "var(--color-brand)" }}
               >
                 Launch Playground
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />

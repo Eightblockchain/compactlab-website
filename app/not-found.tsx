@@ -24,7 +24,7 @@ export default function NotFound() {
       >
         {/* 404 */}
         <div className="mb-6 font-mono text-[120px] sm:text-[160px] font-black leading-none select-none"
-          style={{ color: "#E95144", opacity: 0.15 }}
+          style={{ color: "var(--color-brand)", opacity: 0.15 }}
         >
           404
         </div>
@@ -39,7 +39,7 @@ export default function NotFound() {
           </div>
           <div className="px-5 py-4 space-y-1 text-left">
             <p>
-              <span style={{ color: "#E95144" }}>error</span>
+              <span style={{ color: "var(--color-brand)" }}>error</span>
               <span className="text-white/30">: route not found</span>
             </p>
             <p className="text-white/20">
@@ -49,7 +49,7 @@ export default function NotFound() {
               <span className="text-white/40">{"  "}→</span> the page you&apos;re looking for doesn&apos;t exist
             </p>
             <p className="text-white/20 flex items-center gap-2 pt-1">
-              <span className="inline-block w-2 h-3.5 align-middle animate-pulse" style={{ backgroundColor: "#E95144" }} />
+              <span className="inline-block w-2 h-3.5 align-middle animate-pulse" style={{ backgroundColor: "var(--color-brand)" }} />
             </p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function NotFound() {
           <Link
             href="/"
             className="px-5 py-2.5 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-80"
-            style={{ backgroundColor: "#E95144" }}
+            style={{ backgroundColor: "var(--color-brand)" }}
           >
             Go home
           </Link>
