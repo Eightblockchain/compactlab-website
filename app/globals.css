@@ -2,117 +2,59 @@
 /* CompactLab design system (shared with playground and admin): compactlab/design-system */
 @import "../styles/compactlab-tokens.css";
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --accent: var(--color-brand);
-  --muted: #111111;
-  --border: rgba(255, 255, 255, 0.08);
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
 }
 
-html {
-  scroll-behavior: smooth;
+::selection {
+  background: color-mix(in srgb, var(--color-brand) 35%, transparent);
+  color: #fff;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-}
-.animate-float {
-  animation: float 5s ease-in-out infinite;
+/* Code reads as typed, like the playground editor (no >= → ≥ ligatures). */
+code, pre, kbd {
+  font-variant-ligatures: none;
 }
 
-/* Horizontal beam — used on code editor panels */
-@keyframes beam {
-  0%   { left: -30%; opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { left: 110%; opacity: 0; }
-}
-.animate-beam {
-  animation: beam 3.5s ease-in-out infinite;
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-/* Vertical scan line — moves top→bottom on code blocks */
-@keyframes scan {
-  0%   { top: 0%;   opacity: 0; }
-  5%   { opacity: 0.25; }
-  95%  { opacity: 0.12; }
-  100% { top: 100%; opacity: 0; }
+/*
+ * Scroll reveal: the playground's slide-up (fade + small rise, ease-out), a bit
+ * slower for page-sized blocks. Only active once the bootstrap script opts in,
+ * so content is never hidden without JavaScript. Stagger with --reveal-delay.
+ */
+[data-reveal] {
+  transition:
+    opacity 0.5s cubic-bezier(0.2, 0, 0, 1),
+    transform 0.5s cubic-bezier(0.2, 0, 0, 1);
+  transition-delay: var(--reveal-delay, 0ms);
 }
-.animate-scan {
-  position: absolute;
-  left: 0; right: 0;
-  height: 2px;
-  animation: scan 5s ease-in-out infinite;
-}
-
-/* Blinking cursor */
-@keyframes cursor-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-.animate-cursor {
-  animation: cursor-blink 1s step-end infinite;
+html[data-reveal="on"] [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
-/* Gradient text shimmer */
-@keyframes gradient-x {
-  0%, 100% { background-position: 0% 50%; }
-  50%       { background-position: 100% 50%; }
-}
-.animate-gradient-x {
-  background-size: 200% 200%;
-  animation: gradient-x 4s ease infinite;
+/* Anchored sections clear the sticky header. */
+[id] {
+  scroll-margin-top: 72px;
 }
 
-/* Glow pulse ring */
-@keyframes glow-ring {
-  0%   { box-shadow: 0 0 0 0px color-mix(in srgb, var(--color-brand) 50%, transparent); }
-  70%  { box-shadow: 0 0 0 12px color-mix(in srgb, var(--color-brand) 0%, transparent); }
-  100% { box-shadow: 0 0 0 0px color-mix(in srgb, var(--color-brand) 0%, transparent); }
-}
-.animate-glow-ring {
-  animation: glow-ring 2s ease-out infinite;
-}
-
-.accent-text {
-  color: var(--color-brand);
-}
-
-.glass {
-  background: rgba(10, 10, 10, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: #000;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand);
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

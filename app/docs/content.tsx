@@ -1,474 +1,291 @@
 /**
- * ╔══════════════════════════════════════════════════════════════╗
- * ║  DOCS CONTENT                                               ║
- * ║  app/docs/content.tsx                                       ║
- * ╠══════════════════════════════════════════════════════════════╣
- * ║  This is the ONLY file you need to edit to update the docs. ║
- * ║  The layout, sidebar, and styling live in page.tsx and      ║
- * ║  components/docs/ui.tsx — no need to touch those.           ║
- * ║                                                             ║
- * ║  Available components (auto-complete in VS Code):           ║
- * ║    <DocH2 id="anchor-id">Section Title</DocH2>              ║
- * ║    <DocH3 id="anchor-id">Sub-section</DocH3>                ║
- * ║    <P>Paragraph text</P>                                    ║
- * ║    <Code>inline code</Code>                                 ║
- * ║    <CodeBlock filename="Foo.compact">{`...`}</CodeBlock>     ║
- * ║    <CalloutBox type="info|warning|tip">...</CalloutBox>     ║
- * ║    <Soon />   ← "soon" badge next to a heading              ║
- * ╚══════════════════════════════════════════════════════════════╝
+ * Docs text. The sidebar comes from ./nav.ts, so a new section needs an entry
+ * there too. Building blocks live in components/docs/ui.tsx.
+ *
+ * Only describe what the playground does today. Every Compact example here is
+ * taken from a playground template, so it compiles with the pinned compiler.
  */
 
-import Link from "next/link";
-import { Soon, DocH2, DocH3, P, Code, CodeBlock, CalloutBox } from "@/components/docs/ui";
+import { A, Callout, Code, CodeBlock, DocH2, DocH3, List, P, Strong } from "@/components/docs/ui";
+import { LINKS, PLAYGROUND_URL, SOURCE_URL, TOOLCHAIN } from "@/lib/site";
+
+const TEMPLATES: Array<[name: string, about: string, level: string]> = [
+  ["Hello World", "Store a public message on-chain. Deploys instantly.", "beginner"],
+  ["Counter", "On-chain counter with the built-in Counter type. Deploys instantly.", "beginner"],
+  ["Simple Voting", "One vote per wallet; why a witness that drives a public tally must be disclosed.", "beginner"],
+  ["Bulletin Board", "One-slot board: post and take down with a ZK ownership proof.", "beginner"],
+  ["Owned Contract", "Admin pattern with a transferable owner role.", "beginner"],
+  ["Fungible Token", "Token balances in a Map keyed by ZswapCoinPublicKey.", "intermediate"],
+  ["Name Registry", "Map names to owners: register, transfer, release.", "intermediate"],
+  ["Player Profile", "Struct types and a Map of structs.", "intermediate"],
+  ["Escrow", "State-machine escrow with an arbiter and role guards.", "intermediate"],
+  ["ZK Commitment", "Commit-reveal: prove knowledge of a secret without revealing it.", "advanced"],
+];
 
 export default function DocsContent() {
   return (
     <>
-      {/* ── Introduction ─────────────────────────────────────────── */}
+      {/* ── Getting started ─────────────────────────────────────── */}
 
       <DocH2 id="introduction">Introduction</DocH2>
       <P>
-        <strong className="text-white/75">Midnight Compact Lab</strong> is a
-        browser-based playground for{" "}
-        <strong className="text-white/75">Compact</strong> — the smart contract
-        language of the Midnight blockchain. Create a free Community account,
-        write contracts in the editor, Compile (ZK), then Deploy and Call on
-        Midnight Preprod with the 1AM wallet. No local Compact toolchain is required.
+        CompactLab is a browser IDE for <A href={LINKS.compactDocs}>Compact</A>, the smart-contract language of the
+        Midnight Network. You write a contract in the editor, CompactLab compiles it on its servers, and you deploy
+        and call it from your own <A href={LINKS.oneAm}>1AM</A> wallet on Midnight Preprod or Preview.
       </P>
       <P>
-        The Lab runs the Compact compiler, stores your projects in the cloud,
-        and talks to Midnight Preprod so you can prove and submit transactions
-        from the browser. Mainnet is not supported in v1.
+        The playground runs Compact compiler <Code>{TOOLCHAIN.compiler}</Code> (language{" "}
+        <Code>{TOOLCHAIN.language}</Code>), following Midnight’s{" "}
+        <A href={LINKS.supportMatrix}>support matrix</A>. It is free and{" "}
+        <A href={SOURCE_URL}>open source</A>.
       </P>
 
-      {/* ── What is Compact? ─────────────────────────────────────── */}
-
-      <DocH2 id="what-is-compact">What is Compact?</DocH2>
-      <P>
-        Compact is a domain-specific language designed for writing smart contracts
-        on the{" "}
-        <a
-          href="https://midnight.network"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-white/80 transition-colors"
-          style={{ color: "var(--color-brand)" }}
-        >
-          Midnight blockchain
-        </a>
-        . Its defining feature is built-in{" "}
-        <strong className="text-white/75">zero-knowledge proving</strong>: contract
-        logic runs privately on the user&apos;s device and only a cryptographic proof
-        is submitted on-chain. Public state is updated without ever revealing the
-        private inputs that produced the proof.
-      </P>
-      <P>
-        This model makes Compact uniquely suited for applications requiring
-        selective disclosure — proving a condition is true without revealing the
-        underlying data.
-      </P>
-      <CalloutBox type="info">
-        Compact compiles to ZK circuits. Each <Code>circuit</Code> function in your
-        contract becomes a provable computation. The compiler version used in Compact
-        Lab is <Code>{">=0.20"}</Code>.
-      </CalloutBox>
-
-      {/* ── Quick Start ──────────────────────────────────────────── */}
-
-      <DocH2 id="quick-start">Quick Start</DocH2>
-      <P>Create a free Community account, then open the playground:</P>
-      <ol className="list-decimal list-inside text-white/50 text-sm leading-relaxed space-y-2 mb-6 pl-1">
-        <li>Choose a starter template — Hello and Counter support Instant Deploy.</li>
-        <li>Write your Compact contract in the editor. Syntax errors are highlighted inline.</li>
-        <li>Typecheck, then <strong className="text-white/75">Compile (ZK)</strong> for custom contracts.</li>
-        <li>Connect <strong className="text-white/75">1AM</strong> on Midnight Preprod, Deploy, then Call circuits from the Contract panel.</li>
-      </ol>
-
-      {/* ── Interface Overview ───────────────────────────────────── */}
-
-      <DocH2 id="interface-overview">Interface Overview</DocH2>
-      <P>The Compact Lab interface is split into three main zones:</P>
-      <div className="space-y-3 mb-8">
-        {[
-          {
-            label: "Editor Panel",
-            desc:  "Center canvas where you write Compact source code. Features syntax highlighting, bracket matching, and inline error markers.",
-          },
-          {
-            label: "Output Panel",
-            desc:  "Displays compiler output, circuit metadata, network logs, and ZK artifact listings after Compile.",
-          },
-          {
-            label: "File Explorer",
-            desc:  "Manage multiple .compact files per project. Templates are pre-loaded as individual files.",
-          },
-        ].map(({ label, desc }) => (
-          <div key={label} className="flex gap-4 p-4 rounded-lg border border-white/8 bg-white/[0.02]">
-            <div className="w-1 rounded-full shrink-0" style={{ backgroundColor: "var(--color-brand)", opacity: 0.6 }} />
-            <div>
-              <p className="text-sm font-medium text-white/80 mb-1">{label}</p>
-              <p className="text-xs text-white/40 leading-relaxed">{desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <DocH3 id="keyboard-shortcuts">
-        Keyboard Shortcuts <Soon />
-      </DocH3>
-      <P>
-        A full keyboard shortcut reference is coming soon. In the meantime the
-        editor supports standard code editor bindings (save, undo/redo, find,
-        comment toggle).
-      </P>
-
-      <DocH3 id="file-management">
-        File Management
-      </DocH3>
-      <P>
-        Signed-in projects sync to CompactLab cloud storage so you can resume work
-        across sessions. Richer multi-file workflows and zip import/export polish
-        continue to evolve with the playground.
-      </P>
-
-      {/* ── Contract Structure ───────────────────────────────────── */}
-
-      <DocH2 id="contract-structure">Contract Structure</DocH2>
-      <P>
-        Every Compact contract begins with a language pragma and a standard library
-        import. At the top level you declare ledger state, witnesses, a constructor,
-        and one or more circuit functions.
-      </P>
-      <CodeBlock filename="Counter.compact">
-{`pragma language_version >= 0.20;
-
-import CompactStandardLibrary;
-
-// ── ledger state (public, on-chain) ──────────────
-export ledger count: Counter;
-
-// ── private witness ──────────────────────────────
-witness secretKey(): Bytes<32>;
-
-// ── initialises on-chain state ───────────────────
-constructor() {
-  count.increment(0);
-}
-
-// ── provable transition ──────────────────────────
-export circuit increment(): [] {
-  count.increment(1);
-}`}
-      </CodeBlock>
-
-      {/* ── Ledger State ─────────────────────────────────────────── */}
-
-      <DocH3 id="ledger-state">Ledger State</DocH3>
-      <P>
-        Ledger variables hold persistent, public state stored on the Midnight
-        blockchain. They are declared at module scope using the{" "}
-        <Code>ledger</Code> keyword.
-      </P>
-      <CodeBlock>
-{`export ledger count:    Counter;     // auto-incrementing integer
-export ledger owner:    Bytes<32>;   // 32-byte hash (e.g. public-key hash)
-export ledger sequence: Counter;     // monotonic sequence number
-export ledger state:    State;       // user-defined enum`}
-      </CodeBlock>
-      <CalloutBox type="warning">
-        Ledger variables are <strong>always public</strong>. Never store private
-        data directly in a ledger variable. Use <Code>witness</Code> declarations
-        and the <Code>disclose()</Code> pattern instead.
-      </CalloutBox>
-
-      {/* ── Circuits ─────────────────────────────────────────────── */}
-
-      <DocH3 id="circuits">Circuits</DocH3>
-      <P>
-        A <Code>circuit</Code> is a function whose execution generates a ZK proof.
-        When you call an exported circuit from a Midnight DApp, the proof is
-        computed client-side and submitted on-chain without revealing the private
-        inputs.
-      </P>
-      <CodeBlock>
-{`export circuit post(): [] {
-  assert(state == State.VACANT, "Board is occupied");
-  owner = disclose(persistentHash<Bytes<32>>(localKey()));
-  state = State.OCCUPIED;
-  sequence.increment(1);
-}`}
-      </CodeBlock>
-      <P>
-        The return type <Code>[]</Code> means the circuit returns nothing publicly.
-        A circuit can also return public values, e.g. <Code>{"[Uint<32>]"}</Code>.
-      </P>
-
-      {/* ── Witnesses & Privacy ──────────────────────────────────── */}
-
-      <DocH3 id="witnesses">Witnesses &amp; Privacy</DocH3>
-      <P>
-        A <Code>witness</Code> declaration names a private value that the user
-        supplies at proof-generation time. This value never touches the blockchain —
-        only the proof that something valid was provided is recorded.
-      </P>
-      <CodeBlock>
-{`// declares that the user will provide a 32-byte secret key
-witness secretKey(): Bytes<32>;
-
-// or: a key derived from the local wallet
-witness localKey(): Bytes<32>;`}
-      </CodeBlock>
-      <P>
-        Inside a circuit you can use witness values freely. The compiler ensures
-        they cannot &quot;leak&quot; into public state unless explicitly wrapped in{" "}
-        <Code>disclose()</Code>.
-      </P>
-
-      {/* ── disclose() ───────────────────────────────────────────── */}
-
-      <DocH3 id="disclose">The <Code>disclose()</Code> Pattern</DocH3>
-      <P>
-        <Code>disclose()</Code> is the gate between private and public. It marks an
-        expression as intentionally made public, which allows it to be written into
-        a ledger variable.
-      </P>
-      <CodeBlock>
-{`// ✓ safe — only the HASH of the secret key is public
-owner = disclose(persistentHash<Bytes<32>>(secretKey()));
-
-// ✗ compile error — can't assign a witness directly to ledger state
-// owner = secretKey();`}
-      </CodeBlock>
-      <P>Two hashing builtins are available:</P>
-      <ul className="list-disc list-inside text-white/50 text-sm space-y-2 mb-6 pl-1">
+      <DocH2 id="quick-start">Quick start</DocH2>
+      <List ordered>
         <li>
-          <Code>persistentHash&lt;T&gt;(value)</Code> — produces the same hash across
-          multiple transactions for the same input. Use for ownership proofs.
+          Open the <A href={PLAYGROUND_URL}>playground</A> and create a free account with email, or with Google or
+          GitHub when offered.
         </li>
         <li>
-          <Code>transientHash&lt;T&gt;(value)</Code> — produces a unique hash per
-          transaction. Use for one-time commitments.
+          Create a project from the <Strong>Counter</Strong> template.
         </li>
-      </ul>
+        <li>
+          Install <A href={LINKS.oneAm}>1AM</A>, switch it to Preprod and get test tokens from the{" "}
+          <A href={LINKS.preprodFaucet}>Preprod faucet</A>.
+        </li>
+        <li>
+          Click <Strong>Deploy</Strong> and approve in 1AM. Unedited Hello World and Counter projects deploy with
+          bundled keys; anything else needs <Strong>Compile</Strong> first.
+        </li>
+        <li>
+          In the Contract panel, call <Code>increment()</Code> and watch the <Code>round</Code> ledger value change.
+        </li>
+      </List>
 
-      {/* ── Built-in Types ───────────────────────────────────────── */}
+      {/* ── The playground ──────────────────────────────────────── */}
 
-      <DocH3 id="builtin-types">Built-in Types</DocH3>
-      <div className="overflow-x-auto mb-8">
-        <table className="w-full text-xs font-mono border-collapse">
-          <thead>
-            <tr className="border-b border-white/8">
-              <th className="text-left text-white/30 py-2.5 pr-8 font-normal">Type</th>
-              <th className="text-left text-white/30 py-2.5 pr-8 font-normal">Description</th>
+      <DocH2 id="editor">Editor and projects</DocH2>
+      <P>
+        The editor is Monaco with Compact support: syntax highlighting, completions, hover types, lint and inline
+        diagnostics. A project can hold several files and folders. Projects are saved to your account as you type,
+        so you can continue on another device.
+      </P>
+      <P>
+        If you lose your connection, changes are kept in the browser and synced when you’re back. To keep a
+        local copy, use <Strong>Export project (.zip)</Strong>. The zip includes your sources, the deployment
+        details and, when present, the compiled ZK files.
+      </P>
+
+      <DocH2 id="compile">Compile</DocH2>
+      <P>
+        <Strong>Compile</Strong> (<Code>⌘↵</Code>) sends the source to the CompactLab API, which runs the pinned
+        compiler and produces the circuits and proving keys Deploy needs. The result shows the compiler version,
+        the number of circuits and any warnings.
+      </P>
+      <P>
+        <Strong>Typecheck only</Strong>, in the menu next to Compile, runs the compiler without generating proving
+        keys. It is faster and good for catching errors, but it doesn’t prepare a Deploy.
+      </P>
+      <Callout type="info">
+        Deploy is tied to the exact source you compiled. If you edit the contract after compiling, compile again
+        before deploying.
+      </Callout>
+
+      <DocH2 id="contract-panel">Deploy and call</DocH2>
+      <P>
+        Deploy opens 1AM. If the constructor takes arguments, the playground asks for them first, with inputs that
+        match their Compact types. Your wallet builds the proof, pays the fee and submits the transaction.
+      </P>
+      <P>
+        After a deploy, the <Strong>Contract</Strong> panel lists each exported circuit with typed inputs. Calling a
+        circuit opens 1AM again; when the transaction lands, the panel shows the new public ledger values. Use{" "}
+        <Strong>Join another contract</Strong> to work with an address deployed earlier from the same contract.
+      </P>
+      <P>
+        If your contract declares witnesses, the playground asks for values only for the witnesses that the
+        constructor or circuit actually calls. Witness values are saved to your project by default; turn off{" "}
+        <Strong>Sync witness values to the cloud</Strong> in Settings to keep them on your device only.
+      </P>
+      <Callout type="warning">
+        CompactLab never deploys or calls a contract by itself. Every transaction needs your approval in 1AM.
+      </Callout>
+
+      <DocH2 id="privacy-view">Privacy view</DocH2>
+      <P>
+        The Privacy view marks each value in your contract as private, public, disclosed or hashed, so you can see
+        where data crosses from private to public and where <Code>disclose()</Code> is needed. It is a guide built
+        from the source, not a formal verifier: the compiler is the final word.
+      </P>
+
+      <DocH2 id="templates">Templates</DocH2>
+      <P>
+        Every template is compiled against the pinned compiler before a release. Hello World and Counter ship with
+        prebuilt keys, so an unedited copy deploys without compiling. The Learn panel explains the concepts each one
+        uses.
+      </P>
+      <div className="mb-6 overflow-hidden rounded-lg border border-border">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-surface text-xs text-text-muted">
+            <tr>
+              <th className="px-4 py-2.5 font-medium">Template</th>
+              <th className="px-4 py-2.5 font-medium">What it shows</th>
+              <th className="hidden px-4 py-2.5 font-medium sm:table-cell">Level</th>
             </tr>
           </thead>
-          <tbody className="text-white/50">
-            {[
-              ["Counter",            "Auto-incrementing ledger integer (call .increment(n))"],
-              ["Bytes<N>",           "Fixed-length byte array of length N"],
-              ["Uint<N>",            "Unsigned integer with N-bit precision"],
-              ["Boolean",            "true / false"],
-              ["Field",              "Prime field element (raw ZK circuit value)"],
-              ["Maybe<T>",           "Optional value — none<T>() or some<T>(val)"],
-              ["ZswapCoinPublicKey", "A Midnight wallet public key"],
-              ["Vector<N, T>",       "Fixed-length array of N elements of type T"],
-            ].map(([type, desc]) => (
-              <tr key={type} className="border-b border-white/5">
-                <td className="py-2.5 pr-8" style={{ color: "var(--color-brand)" }}>{type}</td>
-                <td className="py-2.5 text-white/40">{desc}</td>
+          <tbody className="divide-y divide-border">
+            {TEMPLATES.map(([name, about, level]) => (
+              <tr key={name}>
+                <td className="px-4 py-2.5 whitespace-nowrap text-text-primary">{name}</td>
+                <td className="px-4 py-2.5 text-text-secondary">{about}</td>
+                <td className="hidden px-4 py-2.5 text-text-muted capitalize sm:table-cell">{level}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      {/* ── Contract panel ───────────────────────────────────────── */}
-
-      <DocH2 id="simulation">
-        Calling Contracts
-      </DocH2>
       <P>
-        After a successful Deploy, open the <strong className="text-white/75">Contract</strong>{" "}
-        panel. Connect 1AM on Preprod, then Call exported circuits. Proofs run in the
-        wallet; CompactLab then reads public ledger state from the indexer. You can
-        also Join another contract by pasting an address deployed from the same project.
+        There is also a <Strong>Blank Contract</Strong> with an inline guide.
       </P>
-      <CalloutBox type="info">
-        CompactLab v1 does not ship a local Simulate sandbox. Typecheck is offline;
-        Deploy and Call are on-chain on Preprod.
-      </CalloutBox>
 
-      <DocH3 id="circuit-output">
-        Circuit Output
-      </DocH3>
+      {/* ── Wallet and networks ─────────────────────────────────── */}
+
+      <DocH2 id="wallet">1AM wallet</DocH2>
       <P>
-        After Compile (ZK), the output panel lists generated circuits and artifacts.
-        Example:
+        Deploy and Call need the <A href={LINKS.oneAm}>1AM</A> browser wallet. Install it, unlock it, select the
+        same network as the playground and approve the playground site when asked. Other Midnight wallets are not
+        supported yet. You can write, compile and typecheck without a wallet.
       </P>
-      <CodeBlock>
-{`Compilation successful
 
-circuit increment  (k=10, rows=29)
-circuit pause      (k=12, rows=41)
+      <DocH2 id="networks">Networks and fees</DocH2>
+      <List>
+        <li>
+          <Strong>Preprod</Strong> is the default. Get tNIGHT from the{" "}
+          <A href={LINKS.preprodFaucet}>Preprod faucet</A>.
+        </li>
+        <li>
+          <Strong>Preview</Strong> runs the same toolchain. Get tNIGHT from the{" "}
+          <A href={LINKS.previewFaucet}>Preview faucet</A>.
+        </li>
+      </List>
+      <P>
+        Fees are paid in tDUST, which your wallet generates from tNIGHT. If your tDUST balance is 0, fund tNIGHT and
+        wait a moment before you deploy. Contracts deployed on one network are not visible on the other.
+      </P>
 
-witness secretKey: shielded ✓`}
+      <DocH2 id="reading-state">Reading ledger state</DocH2>
+      <P>
+        The playground reads public ledger values from the Midnight indexer. On Preprod it goes through CompactLab,
+        which shares a daily quota between users. If that quota runs out, add your own free{" "}
+        <A href={LINKS.blockfrost}>Blockfrost</A> key in Settings, or switch to Preview, which uses Midnight’s
+        public indexer.
+      </P>
+
+      {/* ── Writing Compact ─────────────────────────────────────── */}
+
+      <DocH2 id="contract-structure">Contract structure</DocH2>
+      <P>
+        A contract starts with a language pragma and the standard library import. It then declares ledger state
+        (public, on-chain), optional witnesses, an optional constructor and the circuits people can call. This is
+        the Hello World template:
+      </P>
+      <CodeBlock filename="contracts/hello-world.compact" ledger={["message"]}>
+        {`pragma language_version >= ${TOOLCHAIN.language};
+
+import CompactStandardLibrary;
+
+// Public on-chain state, readable by anyone.
+export ledger message: Opaque<"string">;
+
+// Anyone can update the message. Writing a circuit
+// parameter to the ledger requires disclose().
+export circuit storeMessage(newMessage: Opaque<"string">): [] {
+  message = disclose(newMessage);
+}`}
       </CodeBlock>
       <P>
-        <Code>k</Code> is the circuit depth parameter and <Code>rows</Code> is the
-        number of constraint rows. Lower is faster and cheaper to prove.
+        Each exported circuit becomes a provable transition: callers prove they ran it correctly, and only the
+        resulting public state changes are recorded.
       </P>
 
-      {/* ── Privacy Inspector ────────────────────────────────────── */}
-
-      <DocH2 id="privacy-inspector">
-        Privacy Inspector
-      </DocH2>
+      <DocH2 id="witnesses">Witnesses and disclose()</DocH2>
       <P>
-        The Privacy tab in the playground highlights Compact disclosure flows
-        (heuristic, not a formal verifier). Use it to see which values stay
-        off-chain in witnesses versus what may be disclosed to the public ledger.
+        A <Code>witness</Code> is private input that the caller supplies when building the proof. It never goes
+        on-chain by itself. Anything derived from a witness or a circuit parameter must pass through{" "}
+        <Code>disclose()</Code> before it can be written to the ledger or returned, and the compiler rejects code
+        that forgets it. From the Bulletin Board template:
       </P>
+      <CodeBlock filename="contracts/bulletin-board.compact" ledger={["state", "owner", "message", "sequence"]}>
+        {`// The poster's secret key stays on their device.
+witness localSecretKey(): Bytes<32>;
 
-      {/* ── Deploying ────────────────────────────────────────────── */}
-
-      <DocH2 id="testnet">
-        Deploying to Preprod
-      </DocH2>
+export circuit post(newMessage: Opaque<"string">): [] {
+  assert(state == State.VACANT, "Board is occupied");
+  // Only a hash of the secret becomes public.
+  owner = disclose(boardPublicKey(localSecretKey(), sequence as Field as Bytes<32>));
+  message = disclose(some<Opaque<"string">>(newMessage));
+  state = State.OCCUPIED;
+}`}
+      </CodeBlock>
       <P>
-        CompactLab v1 deploys to <strong className="text-white/75">Midnight Preprod</strong> with
-        the <strong className="text-white/75">1AM</strong> wallet. Compile (ZK), connect 1AM,
-        fund tDUST from the faucet if needed, then Deploy. After success, open the
-        Contract panel to Call exported circuits and read public ledger state.
+        <Code>persistentHash</Code> gives the same result across compiler versions, so use it for anything you store
+        and compare later, like owner keys. <Code>transientHash</Code> is cheaper but not guaranteed to stay stable
+        across upgrades, so don’t use it to derive stored state.
       </P>
 
-      <DocH3 id="mainnet">
-        Deploying to Mainnet <Soon />
-      </DocH3>
-      <CalloutBox type="warning">
-        CompactLab does not support Mainnet in v1. Always complete a thorough Preprod
-        validation and an independent audit before deploying any contract to Mainnet
-        outside this lab.
-      </CalloutBox>
-
-      {/* ── Templates ────────────────────────────────────────────── */}
-
-      <DocH2 id="using-templates">Using Templates</DocH2>
-      <P>
-        Templates are pre-written Compact contracts. Hello and Counter support Instant
-        Deploy (bundled ZK keys). Other templates need <strong className="text-white/75">Compile (ZK)</strong>{" "}
-        before Deploy. Open Templates in the playground, hover a card, and click{" "}
-        <strong className="text-white/75">Use Template</strong>.
-      </P>
-
-      <DocH3 id="available-templates">Available Templates</DocH3>
-      <div className="space-y-3 mb-8">
-        {[
-          {
-            name: "Private Counter",
-            desc: "A counter with owner-gated pause functionality. Demonstrates Counter ledger type, witness ownership proofs, and assert guards.",
-            file: "PrivateCounter.compact",
-          },
-          {
-            name: "Bulletin Board",
-            desc: "A single-slot message board where only the original poster can take down their message. Demonstrates State enum, disclose(), and sequence counters.",
-            file: "BulletinBoard.compact",
-          },
-          {
-            name: "ZK Loan",
-            desc: "A privacy-preserving loan application that proves creditworthiness without revealing the underlying score. Based on the official Midnight example.",
-            file: "ZkLoan.compact",
-          },
-          {
-            name: "Token Transfer",
-            desc: "A simple shielded token that moves balances privately between ZswapCoinPublicKey addresses.",
-            file: "ShieldedToken.compact",
-            soon: true,
-          },
-        ].map(({ name, desc, file, soon: s }) => (
-          <div key={name} className="p-4 rounded-lg border border-white/8 bg-white/[0.02]">
-            <div className="flex items-start justify-between gap-3 mb-2">
-              <p className="text-sm font-medium text-white/80">{name}</p>
-              {s && <Soon />}
-            </div>
-            <p className="text-xs text-white/35 leading-relaxed mb-2">{desc}</p>
-            {!s && (
-              <code
-                className="font-mono text-xs px-1.5 py-0.5 rounded"
-                style={{ backgroundColor: "rgba(255,255,255,0.07)", color: "var(--color-brand)" }}
-              >
-                {file}
-              </code>
-            )}
-          </div>
-        ))}
+      <DocH2 id="types">Built-in types</DocH2>
+      <div className="mb-6 overflow-hidden rounded-lg border border-border">
+        <table className="w-full text-left text-sm">
+          <tbody className="divide-y divide-border">
+            {[
+              ["Counter", "Ledger counter: .increment(n), .read()"],
+              ["Uint<N>", "Unsigned integer of N bits, e.g. Uint<64>"],
+              ["Field", "Element of the proof system's prime field"],
+              ["Boolean", "true or false"],
+              ["Bytes<N>", "Fixed-length byte array"],
+              ['Opaque<"string">', "A string the contract stores but doesn't inspect"],
+              ["Maybe<T>", "Optional value: some<T>(v) or none<T>()"],
+              ["Vector<N, T>", "Fixed-length array of N values"],
+              ["Map<K, V>, Set<T>", "Ledger collections"],
+              ["ZswapCoinPublicKey", "A Midnight wallet public key"],
+            ].map(([type, desc]) => (
+              <tr key={type}>
+                <td className="px-4 py-2.5 font-mono text-[13px] whitespace-nowrap text-[#E5B567]">{type}</td>
+                <td className="px-4 py-2.5 text-text-secondary">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-
-      {/* ── Wallet Setup ─────────────────────────────────────────── */}
-
-      <DocH2 id="wallet-setup">
-        Wallet Setup
-      </DocH2>
       <P>
-        CompactLab v1 requires the <strong className="text-white/75">1AM</strong> wallet
-        on Midnight Preprod for Deploy and Call (ZK proving via{" "}
-        <Code>getProvingProvider</Code>). Install 1AM from{" "}
-        <a href="https://1am.xyz/" className="text-white/75 underline">1am.xyz</a>,
-        unlock on Preprod, and approve the playground origin. Lace and other Midnight
-        wallets are not supported in v1.
+        For the full language, see the <A href={LINKS.compactDocs}>Compact reference</A>.
       </P>
-      <CalloutBox type="tip">
-        You can Typecheck without a wallet. A funded 1AM wallet on Preprod is required
-        to Deploy or Call on-chain.
-      </CalloutBox>
 
-      {/* ── FAQ ──────────────────────────────────────────────────── */}
+      {/* ── Help ────────────────────────────────────────────────── */}
+
+      <DocH2 id="limits">Limits</DocH2>
+      <List>
+        <li>Mainnet is not supported. Audit any contract independently before it handles real value.</li>
+        <li>1AM is the only supported wallet.</li>
+        <li>There is no local simulator yet: circuits run on-chain, on Preprod or Preview.</li>
+        <li>Fees are paid from your own wallet. Sponsored fees are planned, not available.</li>
+        <li>Compiling and reading Preprod state are rate-limited per account.</li>
+      </List>
 
       <DocH2 id="faq">FAQ</DocH2>
-      <div className="space-y-6 mb-10">
-        {[
-          {
-            q: "Do I need to install anything?",
-            a: "No compiler toolchain on your machine. You need a browser, a free CompactLab account, and 1AM if you want to Deploy or Call on Preprod.",
-          },
-          {
-            q: "Is my code stored anywhere?",
-            a: "Projects sync to CompactLab’s cloud API when you are signed in so you can resume later. Export a zip if you want a local copy.",
-          },
-          {
-            q: "Which Compact version is supported?",
-            a: "CompactLab targets Compact compiler 0.31.1 (language ≥ 0.23). The version is shown after Compile.",
-          },
-          {
-            q: "Can I use the Lab without a Midnight wallet?",
-            a: "You can write and Typecheck without a wallet. Deploy and Call require 1AM on Preprod with tDUST for Self-pay fees.",
-          },
-          {
-            q: "Where can I find official Compact language documentation?",
-            a: "See the official Midnight documentation at docs.midnight.network/compact.",
-          },
-        ].map(({ q, a }) => (
-          <div key={q}>
-            <p className="text-sm font-medium text-white/75 mb-2">{q}</p>
-            <p className="text-sm text-white/45 leading-relaxed">{a}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* ── Bottom nav ───────────────────────────────────────────── */}
-
-      <div className="mt-16 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <a
-          href="https://docs.midnight.network/compact"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs text-white/30 hover:text-white/60 transition-colors"
-        >
-          Official Compact Language Docs →
-        </a>
-        <Link href="/" className="text-xs text-white/30 hover:text-white/60 transition-colors">
-          ← Back to Compact Lab
-        </Link>
-      </div>
+      <DocH3>Does CompactLab see my private inputs?</DocH3>
+      <P>
+        Proofs are built by 1AM in your browser. Witness values are saved with your project unless you turn off
+        cloud sync for them in Settings. Your contract source is sent to the API to compile.
+      </P>
+      <DocH3>Why does Deploy say I need to compile?</DocH3>
+      <P>
+        Deploy needs proving keys that match your current source. Run Compile (not Typecheck only) after your last
+        edit. Unedited Hello World and Counter projects are the exception.
+      </P>
+      <DocH3>Where do I report a bug?</DocH3>
+      <P>
+        Open an issue on <A href={SOURCE_URL}>GitHub</A>.
+      </P>
     </>
   );
 }

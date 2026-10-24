@@ -1,109 +1,99 @@
 /**
- * Docs UI primitives
- * ------------------
- * Shared building blocks used inside app/docs/content.tsx.
- * Edit content.tsx to update text — only touch this file when
- * you need to change how components are styled.
+ * Docs building blocks used by app/docs/content.tsx. Edit content.tsx to change
+ * the text; only touch this file to change how the pieces look.
  */
 
-import React from "react";
+import { Info, Lightbulb, TriangleAlert } from "lucide-react";
+import type { ReactNode } from "react";
+import { CompactCode } from "@/components/site/CompactCode";
+import { cn, TEXT_LINK } from "@/components/site/ui";
 
-/* ── Soon badge ─────────────────────────────────────────────── */
-
-export function Soon() {
+export function DocH2({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <span
-      className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ml-2 align-middle"
-      style={{ backgroundColor: "color-mix(in srgb, var(--color-brand) 12%, transparent)", color: "var(--color-brand)" }}
+    <h2
+      id={id}
+      className="mt-14 mb-4 border-b border-border pb-3 text-xl font-semibold tracking-tight text-text-primary first:mt-0"
     >
-      soon
-    </span>
+      {children}
+    </h2>
   );
 }
 
-/* ── Section anchors (offset for sticky header) ─────────────── */
-
-export function SectionAnchor({ id }: { id: string }) {
-  return <span id={id} className="-mt-24 pt-24 block" />;
-}
-
-/* ── Headings ───────────────────────────────────────────────── */
-
-export function DocH2({ id, children }: { id: string; children: React.ReactNode }) {
+export function DocH3({ id, children }: { id?: string; children: ReactNode }) {
   return (
-    <>
-      <SectionAnchor id={id} />
-      <h2 className="text-xl font-semibold text-white mb-4 mt-14 first:mt-0 pb-3 border-b border-white/8">
-        {children}
-      </h2>
-    </>
+    <h3 id={id} className="mt-8 mb-3 text-base font-medium text-text-primary">
+      {children}
+    </h3>
   );
 }
 
-export function DocH3({ id, children }: { id?: string; children: React.ReactNode }) {
-  return (
-    <>
-      {id && <SectionAnchor id={id} />}
-      <h3 className="text-base font-medium text-white/85 mt-8 mb-3">{children}</h3>
-    </>
-  );
+export function P({ children }: { children: ReactNode }) {
+  return <p className="mb-4 text-[15px] leading-relaxed text-text-secondary">{children}</p>;
 }
 
-/* ── Paragraph ──────────────────────────────────────────────── */
-
-export function P({ children }: { children: React.ReactNode }) {
-  return <p className="text-white/50 text-sm leading-relaxed mb-4">{children}</p>;
+export function Strong({ children }: { children: ReactNode }) {
+  return <strong className="font-medium text-text-primary">{children}</strong>;
 }
 
-/* ── Inline code ────────────────────────────────────────────── */
-
-export function Code({ children }: { children: React.ReactNode }) {
+export function A({ href, children }: { href: string; children: ReactNode }) {
+  const external = !href.startsWith("/") && !href.startsWith("#");
   return (
-    <code
-      className="font-mono text-xs px-1.5 py-0.5 rounded"
-      style={{ backgroundColor: "rgba(255,255,255,0.07)", color: "var(--color-brand)" }}
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={TEXT_LINK}
     >
+      {children}
+    </a>
+  );
+}
+
+export function List({ ordered, children }: { ordered?: boolean; children: ReactNode }) {
+  const Tag = ordered ? "ol" : "ul";
+  return (
+    <Tag
+      className={cn(
+        "mb-5 space-y-2 pl-5 text-[15px] leading-relaxed text-text-secondary marker:text-text-muted",
+        ordered ? "list-decimal" : "list-disc",
+      )}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+export function Code({ children }: { children: ReactNode }) {
+  return (
+    <code className="rounded border border-border bg-surface-2 px-1.5 py-0.5 font-mono text-[0.85em] text-text-primary">
       {children}
     </code>
   );
 }
 
-/* ── Fenced code block ──────────────────────────────────────── */
-
-export function CodeBlock({ children, filename }: { children: string; filename?: string }) {
+export function CodeBlock({ children, filename, ledger }: { children: string; filename?: string; ledger?: string[] }) {
   return (
-    <div className="rounded-lg border border-white/8 overflow-hidden mb-6 text-xs font-mono">
+    <div className="mb-6 overflow-hidden rounded-lg border border-border bg-surface-muted">
       {filename && (
-        <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/8 bg-white/[0.03]">
-          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-brand)", opacity: 0.7 }} />
-          <span className="text-white/30 text-[11px]">{filename}</span>
-        </div>
+        <div className="border-b border-border px-4 py-2 font-mono text-[11px] text-text-muted">{filename}</div>
       )}
-      <pre className="p-5 overflow-x-auto leading-relaxed text-white/55 bg-white/[0.02]">
-        <code>{children}</code>
-      </pre>
+      <CompactCode code={children} ledger={ledger} className="py-3 pr-4" />
     </div>
   );
 }
 
-/* ── Callout box ────────────────────────────────────────────── */
+const CALLOUT = {
+  info: { icon: Info, label: "Note" },
+  warning: { icon: TriangleAlert, label: "Important" },
+  tip: { icon: Lightbulb, label: "Tip" },
+} as const;
 
-type CalloutType = "info" | "warning" | "tip";
-
-const calloutConfig: Record<CalloutType, { border: string; bg: string; label: string; labelColor: string }> = {
-  info:    { border: "border-white/10",       bg: "bg-white/[0.03]", label: "Note",    labelColor: "text-white/40"    },
-  warning: { border: "border-brand/30",   bg: "bg-brand/5",  label: "Warning", labelColor: "text-brand"   },
-  tip:     { border: "border-white/10",       bg: "bg-white/[0.03]", label: "Tip",     labelColor: "text-white/50"    },
-};
-
-export function CalloutBox({ type, children }: { type: CalloutType; children: React.ReactNode }) {
-  const c = calloutConfig[type];
+export function Callout({ type, children }: { type: keyof typeof CALLOUT; children: ReactNode }) {
+  const c = CALLOUT[type];
+  const Icon = c.icon;
   return (
-    <div className={`rounded-lg border ${c.border} ${c.bg} px-5 py-4 mb-6`}>
-      <p className={`text-[11px] font-mono font-semibold uppercase tracking-wider mb-2 ${c.labelColor}`}>
-        {c.label}
-      </p>
-      <div className="text-white/50 text-sm leading-relaxed">{children}</div>
+    <div className="mb-6 flex gap-3 rounded-md border border-border bg-surface px-4 py-3.5">
+      <Icon className="mt-0.5 size-4 shrink-0 text-text-muted" aria-label={c.label} />
+      <div className="text-sm leading-relaxed text-text-secondary">{children}</div>
     </div>
   );
 }

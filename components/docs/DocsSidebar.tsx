@@ -1,150 +1,51 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { DOCS_NAV } from "@/app/docs/nav";
+import { cn } from "@/components/site/ui";
 
-type NavItem = { label: string; href: string; soon?: true };
-type NavGroup = { title: string; items: NavItem[] };
-
-const nav: NavGroup[] = [
-  {
-    title: "Overview",
-    items: [
-      { label: "Introduction",       href: "#introduction" },
-      { label: "What is Compact?",   href: "#what-is-compact" },
-      { label: "Quick Start",        href: "#quick-start" },
-    ],
-  },
-  {
-    title: "The Editor",
-    items: [
-      { label: "Interface Overview", href: "#interface-overview" },
-      { label: "Keyboard Shortcuts", href: "#keyboard-shortcuts", soon: true },
-      { label: "File Management",    href: "#file-management" },
-    ],
-  },
-  {
-    title: "Writing Compact",
-    items: [
-      { label: "Contract Structure",     href: "#contract-structure" },
-      { label: "Ledger State",           href: "#ledger-state" },
-      { label: "Circuits",               href: "#circuits" },
-      { label: "Witnesses & Privacy",    href: "#witnesses" },
-      { label: "The disclose() Pattern", href: "#disclose" },
-      { label: "Built-in Types",         href: "#builtin-types" },
-    ],
-  },
-  {
-    title: "Contract panel",
-    items: [
-      { label: "Call on Preprod", href: "#simulation" },
-      { label: "Circuit Output",  href: "#circuit-output" },
-    ],
-  },
-  {
-    title: "Privacy Inspector",
-    items: [
-      { label: "Visualizing ZK Proofs", href: "#privacy-inspector" },
-    ],
-  },
-  {
-    title: "Deploying",
-    items: [
-      { label: "Preprod", href: "#testnet" },
-      { label: "Mainnet", href: "#mainnet", soon: true },
-    ],
-  },
-  {
-    title: "Templates",
-    items: [
-      { label: "Using Templates",     href: "#using-templates" },
-      { label: "Available Templates", href: "#available-templates" },
-    ],
-  },
-  {
-    title: "Wallet Setup",
-    items: [
-      { label: "Connecting a Wallet", href: "#wallet-setup" },
-    ],
-  },
-  {
-    title: "Reference",
-    items: [
-      { label: "FAQ", href: "#faq" },
-    ],
-  },
-];
+const IDS = DOCS_NAV.flatMap((g) => g.items.map((i) => i.id));
 
 export default function DocsSidebar() {
-  const [active, setActive] = useState<string>("introduction");
+  const [active, setActive] = useState(IDS[0]);
 
-  // Track active section via scroll position
   useEffect(() => {
-    const ids = nav.flatMap((g) => g.items.map((i) => i.href.slice(1)));
-    const HEADER_H = 56 + 24; // sticky header 56px + small visual buffer
-
+    // The section whose heading last scrolled past the sticky header is active.
     const update = () => {
-      const threshold = window.scrollY + HEADER_H;
-      let current = ids[0];
-
-      for (const id of ids) {
+      const threshold = 96;
+      let current = IDS[0];
+      for (const id of IDS) {
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top + window.scrollY <= threshold) {
-          current = id;
-        }
+        if (el && el.getBoundingClientRect().top <= threshold) current = id;
       }
-
-      setActive(current ?? "");
+      setActive(current);
     };
-
     window.addEventListener("scroll", update, { passive: true });
-    update(); // run once on mount
+    update();
     return () => window.removeEventListener("scroll", update);
   }, []);
 
   return (
-    <nav>
-      {nav.map((group) => (
-        <div key={group.title} className="mb-7">
-          <p className="text-[10px] font-mono font-semibold text-white/20 uppercase tracking-widest mb-3">
-            {group.title}
-          </p>
-          <ul className="space-y-0.5">
+    <nav aria-label="Docs">
+      {DOCS_NAV.map((group) => (
+        <div key={group.title} className="mb-6">
+          <p className="mb-2 text-xs font-medium text-text-muted">{group.title}</p>
+          <ul className="border-l border-border">
             {group.items.map((item) => {
-              const id = item.href.slice(1);
-              const isActive = active === id;
-
+              const isActive = active === item.id;
               return (
-                <li key={item.label}>
+                <li key={item.id}>
                   <a
-                    href={item.href}
-                    onClick={() => setActive(id)}
-                    className={[
-                      "flex items-center text-sm py-1 rounded transition-colors",
+                    href={`#${item.id}`}
+                    aria-current={isActive ? "location" : undefined}
+                    className={cn(
+                      "-ml-px block border-l py-1 pl-3 text-[13px] transition-colors",
                       isActive
-                        ? "font-medium"
-                        : "text-white/40 hover:text-white/80",
-                    ].join(" ")}
-                    style={isActive ? { color: "var(--color-brand)" } : undefined}
+                        ? "border-accent text-text-primary"
+                        : "border-transparent text-text-secondary hover:border-border-strong hover:text-text-primary",
+                    )}
                   >
-                    {/* Active indicator bar */}
-                    {isActive && (
-                      <span
-                        className="mr-2 w-0.5 h-4 rounded-full shrink-0"
-                        style={{ backgroundColor: "var(--color-brand)" }}
-                      />
-                    )}
                     {item.label}
-                    {item.soon && (
-                      <span
-                        className="ml-1.5 text-[9px] font-mono font-semibold px-1 py-0.5 rounded"
-                        style={{
-                          backgroundColor: "color-mix(in srgb, var(--color-brand) 10%, transparent)",
-                          color: "var(--color-brand)",
-                        }}
-                      >
-                        soon
-                      </span>
-                    )}
                   </a>
                 </li>
               );
