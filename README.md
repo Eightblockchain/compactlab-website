@@ -1,61 +1,60 @@
-# Compact Lab — Landing Page
+# CompactLab website
 
-Marketing and documentation site for [Compact Lab](https://compactlab.dev) — a browser-based playground for writing, compiling, and deploying [Compact](https://docs.midnight.network/compact) smart contracts on Midnight Preprod.
+Marketing site and docs for [CompactLab](https://compactlab.dev), a browser IDE for writing, compiling and deploying [Compact](https://docs.midnight.network/compact) contracts on Midnight Preprod and Preview.
 
-## Tech Stack
+This project is built on the Midnight Network.
 
-- **Framework** — [Next.js 16](https://nextjs.org) (App Router)
-- **Language** — TypeScript
-- **Styling** — Tailwind CSS v4
-- **Animations** — Framer Motion
-- **Icons** — Lucide React
-- **Fonts** — Inter (sans) · JetBrains Mono (code)
+## Stack
 
-## Project Structure
+- Next.js 16 (App Router, every page is static)
+- Tailwind CSS v4 with the shared CompactLab tokens (`styles/compactlab-tokens.css`)
+- Inter and JetBrains Mono, lucide-react icons
+
+## Structure
 
 ```
 app/
-  layout.tsx          # Root layout, metadata, fonts
-  page.tsx            # Home — assembles all sections
-  changelog/          # Playground release history
-  docs/               # Compact Lab usage documentation
-  privacy/            # Privacy Policy
-  terms/              # Terms of Service
+  layout.tsx          Root layout: metadata, fonts, shared header and footer
+  page.tsx            Home
+  docs/               Docs: content.tsx (text) and nav.ts (sidebar)
+  changelog/          Release history and what's planned
+  privacy/, terms/    Legal pages
 components/
-  Navbar.tsx          # Fixed top nav with mobile menu
-  Hero.tsx            # Above-the-fold with live code mock
-  Features.tsx        # Feature grid
-  HowItWorks.tsx      # Three-step walkthrough
-  DevExperience.tsx   # DX highlights + syntax demo
-  CTA.tsx             # Call-to-action section
-  Footer.tsx          # Links, legal, status
-  DemoModal.tsx       # Video demo overlay
+  site/               Header, Footer, LegalPage, CompactCode and ui primitives
+  home/               Home sections (Hero, ProductPreview, Features, ...)
+  docs/               Docs sidebar and building blocks
 lib/
-  site.ts             # Public URLs (site, playground, source)
+  site.ts             Public URLs, toolchain versions and outside links
 ```
 
-## Getting Started
+## Keeping it true
+
+The site only describes what the playground does today. When the playground changes:
+
+- **Versions:** update `TOOLCHAIN` in `lib/site.ts` when `compactlab/lib/version.ts` changes.
+- **Changelog:** add a release to `app/changelog/page.tsx`.
+- **Docs:** update `app/docs/content.tsx`. Compact examples there are copied from playground templates so they compile.
+- **Roadmap features:** anything not shipped yet is marked as planned.
+
+## Design
+
+Colours and fonts come from the shared design system in `compactlab/design-system`. Don't edit `styles/compactlab-tokens.css` or `lib/design-tokens.ts` by hand; change `compactlab/design-system/tokens.mjs` and run `node compactlab/design-system/sync.mjs` from the workspace root.
+
+## Develop
 
 ```bash
+cp .env.example .env.local
 npm install
-npm run dev
+npm run dev     # http://localhost:3000
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+| Variable | Default |
+|----------|---------|
+| `NEXT_PUBLIC_BASE_URL` | `https://compactlab.dev` |
+| `NEXT_PUBLIC_PLAYGROUND_URL` | `https://playground.compactlab.dev` |
 
-## Commands
+## Deploy
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run start` | Serve production build |
-| `npm run lint` | Run ESLint |
-
-## Environment
-
-No environment variables are required to run the landing page locally. The playground URL (`playground.compactlab.dev`) is hardcoded and gated behind a coming-soon toast until launch.
-
-## Deployment
-
-The site is deployed on [Vercel](https://vercel.com). Pushing to `main` triggers an automatic production deployment.
+Every push to `main` runs `.github/workflows/deploy.yml`, which builds on the VPS and reloads the `compactlab-web` pm2 process.

@@ -2,14 +2,14 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Compact Lab",
-    short_name: "Compact Lab",
+    name: "CompactLab",
+    short_name: "CompactLab",
     description:
-      "Browser-based IDE for writing Compact smart contracts on the Midnight blockchain.",
+      "Browser IDE for writing, compiling and deploying Compact smart contracts on Midnight.",
     start_url: "/",
     display: "standalone",
-    background_color: "#000000",
-    theme_color: "#000000",
+    background_color: "#09090b",
+    theme_color: "#09090b",
     icons: [
       {
         src: "/cl-icon.png",

@@ -1,76 +1,42 @@
 /**
- * Docs layout shell — sidebar, header, grid.
- * ─────────────────────────────────────────
- * To update written content, edit: app/docs/content.tsx
- * To update styling components, edit: components/docs/ui.tsx
+ * Docs layout: sidebar and content column. Edit app/docs/content.tsx for the
+ * text and app/docs/nav.ts for the sidebar.
  */
 
-import Link from "next/link";
-import Image from "next/image";
-import { Metadata } from "next";
-import DocsContent from "./content";
+import type { Metadata } from "next";
 import DocsSidebar from "@/components/docs/DocsSidebar";
+import DocsToc from "@/components/docs/DocsToc";
+import { Container, reveal } from "@/components/site/ui";
+import { BASE_URL } from "@/lib/site";
+import DocsContent from "./content";
+
+const DESCRIPTION =
+  "How to write, compile, deploy and call Compact smart contracts in the CompactLab playground on Midnight Preprod and Preview.";
 
 export const metadata: Metadata = {
   title: "Docs",
-  description:
-    "Learn how to write, compile, and deploy Compact smart contracts in the CompactLab playground on Midnight Preprod.",
-  alternates: { canonical: "https://compactlab.dev/docs" },
-  openGraph: {
-    title: "Docs | Compact Lab",
-    description: "Learn how to write, compile, and deploy Compact smart contracts in the CompactLab playground on Midnight Preprod.",
-    url: "https://compactlab.dev/docs",
-  },
+  description: DESCRIPTION,
+  alternates: { canonical: `${BASE_URL}/docs` },
+  openGraph: { title: "Docs · CompactLab", description: DESCRIPTION, url: `${BASE_URL}/docs` },
 };
-
-/* ─── page ────────────────────────────────────────────────────── */
 
 export default function DocsPage() {
   return (
-    <div className="min-h-screen bg-black">
-      {/* Grid */}
-      <div
-        className="pointer-events-none fixed inset-0 opacity-[0.022]"
-        style={{
-          backgroundImage:
-            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
+    <Container className="flex gap-12">
+      <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-52 shrink-0 overflow-y-auto py-10 lg:block">
+        <DocsSidebar />
+      </aside>
 
-      {/* Top bar */}
-      <header className="sticky top-0 z-40 border-b border-white/8 bg-black/90 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <Image src="/cl-logo.png" alt="Compact Lab logo" width={107} height={20} priority />
-            </Link>
-            <span className="text-white/15 text-sm">/</span>
-            <span className="text-white/40 text-sm">Docs</span>
-          </div>
-          <Link
-            href="/"
-            className="text-xs text-white/30 hover:text-white/60 transition-colors font-mono"
-          >
-            ← Back to home
-          </Link>
-        </div>
-      </header>
+      <main id="main-content" className="min-w-0 max-w-[720px] flex-1 py-10 sm:py-14">
+        <h1 {...reveal()} className="text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">Using CompactLab</h1>
+        <p className="mt-3 mb-8 text-[15px] text-text-secondary">
+          Everything the playground does today, and how to use it.
+        </p>
 
-      <div className="max-w-7xl mx-auto px-6 flex gap-0 relative z-10">
-        {/* Sidebar */}
-        <aside className="hidden lg:block w-60 shrink-0 py-10 pr-8 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
-          <DocsSidebar />
-        </aside>
+        <DocsToc />
 
-        {/* Divider */}
-        <div className="hidden lg:block w-px bg-white/8 shrink-0 my-10" />
-
-        {/* Content */}
-        <main id="main-content" className="flex-1 min-w-0 py-10 lg:pl-12 max-w-2xl">
-          <DocsContent />
-        </main>
-      </div>
-    </div>
+        <DocsContent />
+      </main>
+    </Container>
   );
 }

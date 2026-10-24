@@ -1,283 +1,138 @@
-import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { Container, Planned, reveal, TEXT_LINK } from "@/components/site/ui";
+import { BASE_URL, SOURCE_URL } from "@/lib/site";
+
+const DESCRIPTION = "What changed in the CompactLab playground, release by release.";
 
 export const metadata: Metadata = {
   title: "Changelog",
-  description:
-    "Release history for Compact Lab — new features, improvements, and Compact compiler updates.",
-  alternates: { canonical: "https://compactlab.dev/changelog" },
-  openGraph: {
-    title: "Changelog | Compact Lab",
-    description: "Release history for Compact Lab — new features, improvements, and Compact compiler updates.",
-    url: "https://compactlab.dev/changelog",
-  },
+  description: DESCRIPTION,
+  alternates: { canonical: `${BASE_URL}/changelog` },
+  openGraph: { title: "Changelog · CompactLab", description: DESCRIPTION, url: `${BASE_URL}/changelog` },
 };
 
-/* ─── types ───────────────────────────────────────────────────── */
+type Kind = "new" | "improved" | "fixed" | "toolchain";
+type Release = { date: string; title: string; changes: Array<[Kind, string]> };
 
-type ChangeKind = "new" | "improved" | "fixed" | "compiler" | "breaking";
-
-type ChangeEntry = {
-  kind: ChangeKind;
-  text: string;
-};
-
-type Release = {
-  version: string;
-  date: string;
-  tag?: "latest";
-  summary: string;
-  changes: ChangeEntry[];
-};
-
-/* ─── data ────────────────────────────────────────────────────── */
-
-const releases: Release[] = [
+/** Taken from the playground's merged pull requests. Newest first. */
+const RELEASES: Release[] = [
   {
-    version: "0.1.0",
-    date: "April 2, 2026",
-    tag: "latest",
-    summary:
-      "Community v1: browser IDE with cloud projects — Compile (ZK), Deploy, and Call on Midnight Preprod with 1AM (self-pay tDUST). Free Community plan; signup required. No local Simulate tab.",
+    date: "October 2026",
+    title: "Preview network and planned maintenance",
     changes: [
-      { kind: "new",      text: "Free Community plan with signup — browser IDE and cloud-synced projects." },
-      { kind: "new",      text: "Compile (ZK) → Deploy → Call / Contract panel on Midnight Preprod (no local Simulate sandbox)." },
-      { kind: "new",      text: "1AM wallet integration for Deploy and Call; self-pay tDUST for network fees." },
-      { kind: "new",      text: "Monaco-based code editor with Compact syntax highlighting and inline diagnostics." },
-      { kind: "new",      text: "Starter templates including Hello and Counter Instant Deploy; Plus Private Counter, Bulletin Board, ZK Loan." },
-      { kind: "new",      text: "Output panel for compiler results and circuit metadata after Compile (ZK)." },
-      { kind: "new",      text: "Privacy Visualization tab — heuristic disclosure highlighting (not a formal verifier)." },
-      { kind: "compiler", text: "Targets Compact compiler 0.31.1 / language 0.23 (shown after Compile)." },
+      ["new", "Preview network alongside Preprod, with Midnight's public indexer."],
+      ["new", "Add your own free Blockfrost key in Settings to read Preprod state."],
+      ["new", "Planned maintenance is announced ahead with a live countdown, and open work is saved before it starts."],
+      ["improved", "A refined, more compact playground layout."],
+      ["improved", "Scoped completions, richer hovers and type hints in the editor."],
+      ["improved", "Bytes<N> values can be entered and read as text."],
+      ["improved", "The Contract panel explains ledger fields that aren't exported."],
+      ["improved", "Only the witnesses a constructor or circuit calls are asked for."],
+      ["fixed", "Expired 1AM sessions are detected and you're asked to reconnect."],
+      ["fixed", "Unsaved changes are kept and retried if a save fails, instead of being lost."],
+      ["toolchain", "Every template is checked against compiler 0.31.1 with language 0.23."],
+    ],
+  },
+  {
+    date: "September 2026",
+    title: "Constructors, live contract panel and settings",
+    changes: [
+      ["new", "Deploy asks for constructor arguments, with inputs that match their Compact types."],
+      ["new", "Call circuits from the Contract panel and see ledger values update."],
+      ["new", "Compact lint, language server and the Privacy view in the editor."],
+      ["new", "Settings for account, witness privacy and wallet restore."],
+      ["improved", "Compiles run as background jobs on the API."],
+      ["toolchain", "Compact compiler 0.31.1 and Midnight.js 4.1.1."],
+    ],
+  },
+  {
+    date: "August 2026",
+    title: "Accounts, cloud projects and 1AM",
+    changes: [
+      ["new", "Sign up with email, Google or GitHub. Projects are saved to your account."],
+      ["new", "Compile, then Deploy with the 1AM wallet, with links to the block explorer."],
+      ["new", "tDUST balance shown from 1AM."],
+      ["new", "The Learn panel for Compact and Midnight concepts."],
+      ["new", "Export a project as a zip, with its deployment details."],
+      ["new", "Browse the compiled ZK artifacts of a contract."],
+    ],
+  },
+  {
+    date: "April 2026",
+    title: "v1.0.0: first release",
+    changes: [
+      ["new", "Browser IDE with the Monaco editor and Compact syntax support."],
+      ["new", "Projects with nested folders and multiple files."],
+      ["new", "Ten Compact templates, from Hello World to ZK Commitment."],
     ],
   },
 ];
 
-/* ─── coming up ───────────────────────────────────────────────── */
-
-const roadmap: { label: string; desc: string }[] = [
-  { label: "Sponsored fees", desc: "Optional CompactLab-paid Preprod fees when a funded sponsor wallet is configured." },
-  { label: "Local Simulate tab", desc: "Offline circuit sandbox with editable witnesses — not in Community v1." },
-  { label: "Keyboard shortcut panel", desc: "Full reference for editor bindings, available from the command palette." },
-  { label: "Mainnet support", desc: "Deployment to Midnight Mainnet once CompactLab explicitly ships that network." },
-  { label: "Shareable snippets", desc: "Generate a permalink to share a contract in a read-only view." },
-  { label: "More templates", desc: "Additional Instant Deploy templates beyond Hello and Counter." },
+/** From the CompactLab roadmap. None of these are available yet. */
+const PLANNED = [
+  ["Sponsored fees", "CompactLab pays Preprod fees for an allow-list of builders."],
+  ["Browser simulator", "Run circuits locally before you deploy."],
+  ["Test links", "Share a deployed contract with testers through a link."],
+  ["Forge copilot", "An assistant that writes and repairs Compact in the IDE."],
+  ["Quests", "Guided learning paths with certificates."],
+  ["Export to GitHub", "Turn a project into a real dApp repository."],
 ];
 
-/* ─── helpers ─────────────────────────────────────────────────── */
-
-const kindConfig: Record<ChangeKind, { label: string; bg: string; color: string }> = {
-  new:      { label: "New",      bg: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.55)" },
-  improved: { label: "Improved", bg: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.55)" },
-  fixed:    { label: "Fixed",    bg: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.55)" },
-  compiler: { label: "Compiler", bg: "color-mix(in srgb, var(--color-brand) 12%, transparent)",  color: "var(--color-brand)" },
-  breaking: { label: "Breaking", bg: "color-mix(in srgb, var(--color-brand) 18%, transparent)",  color: "var(--color-brand)" },
+const KIND: Record<Kind, string> = {
+  new: "New",
+  improved: "Improved",
+  fixed: "Fixed",
+  toolchain: "Toolchain",
 };
-
-function Badge({ kind }: { kind: ChangeKind }) {
-  const c = kindConfig[kind];
-  return (
-    <span
-      className="inline-block text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded shrink-0 mt-0.5"
-      style={{ backgroundColor: c.bg, color: c.color }}
-    >
-      {c.label}
-    </span>
-  );
-}
-
-function Soon() {
-  return (
-    <span
-      className="inline-flex items-center text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ml-2 align-middle"
-      style={{ backgroundColor: "color-mix(in srgb, var(--color-brand) 12%, transparent)", color: "var(--color-brand)" }}
-    >
-      soon
-    </span>
-  );
-}
-
-/* ─── page ────────────────────────────────────────────────────── */
 
 export default function ChangelogPage() {
   return (
-    <div id="main-content" className="min-h-screen bg-black">
-      <div
-        className="pointer-events-none fixed inset-0 opacity-[0.022]"
-        style={{
-          backgroundImage:
-            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
+    <main id="main-content">
+      <Container className="max-w-3xl py-14 sm:py-20">
+        <h1 {...reveal()} className="text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">What’s new</h1>
+        <p className="mt-3 text-[15px] text-text-secondary">
+          {DESCRIPTION} Full history on{" "}
+          <a href={SOURCE_URL} target="_blank" rel="noopener noreferrer" className={TEXT_LINK}>
+            GitHub
+          </a>
+          .
+        </p>
 
-      {/* Top bar */}
-      <header className="sticky top-0 z-40 border-b border-white/8 bg-black/90 backdrop-blur-md">
-        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <div
-                className="w-6 h-6 rounded-sm flex items-center justify-center"
-                style={{ backgroundColor: "var(--color-brand)" }}
-              >
-                <span className="text-white font-black text-[10px] font-mono">CL</span>
+        <ol className="mt-12 space-y-12">
+          {RELEASES.map((r) => (
+            <li key={r.date} {...reveal()} className="grid gap-3 sm:grid-cols-[140px_1fr] sm:gap-8">
+              <time className="pt-0.5 font-mono text-xs text-text-muted">{r.date}</time>
+              <div>
+                <h2 className="text-lg font-medium text-text-primary">{r.title}</h2>
+                <ul className="mt-4 space-y-2.5">
+                  {r.changes.map(([kind, text]) => (
+                    <li key={text} className="flex items-start gap-3 text-sm leading-relaxed text-text-secondary">
+                      <span className="w-[72px] shrink-0 text-text-muted">{KIND[kind]}</span>
+                      {text}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <span className="font-semibold text-white tracking-tight text-sm">
-                Compact<span style={{ color: "var(--color-brand)" }}>Lab</span>
-              </span>
-            </Link>
-            <span className="text-white/15 text-sm">/</span>
-            <span className="text-white/40 text-sm">Changelog</span>
-          </div>
-          <Link
-            href="/"
-            className="text-xs text-white/30 hover:text-white/60 transition-colors font-mono"
-          >
-            ← Back to home
-          </Link>
-        </div>
-      </header>
+            </li>
+          ))}
+        </ol>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-16">
-        {/* Page header */}
-        <div className="mb-16 max-w-xl">
-          <div
-            className="inline-block text-xs font-mono font-semibold px-2.5 py-1 rounded mb-5"
-            style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
-          >
-            Changelog
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-            What&apos;s new in Compact Lab
-          </h1>
-          <p className="text-white/40 text-sm leading-relaxed">
-            Every release, improvement, and compiler update — in one place.
-          </p>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-16">
-          {/* ── Release timeline ── */}
-          <div className="flex-1 min-w-0">
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-[5px] top-3 bottom-0 w-px bg-white/8" />
-
-              <div className="space-y-16">
-                {releases.map((release) => (
-                  <div key={release.version} className="relative pl-8">
-                    {/* Timeline dot */}
-                    <div
-                      className="absolute left-0 top-3 w-[11px] h-[11px] rounded-full border-2 border-black"
-                      style={{ backgroundColor: "var(--color-brand)" }}
-                    />
-
-                    {/* Version + date */}
-                    <div className="flex flex-wrap items-center gap-3 mb-3">
-                      <h2 className="text-lg font-semibold text-white font-mono">
-                        v{release.version}
-                      </h2>
-                      {release.tag === "latest" && (
-                        <span
-                          className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded"
-                          style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
-                        >
-                          latest
-                        </span>
-                      )}
-                      <span className="text-xs text-white/25 font-mono ml-auto sm:ml-0">
-                        {release.date}
-                      </span>
-                    </div>
-
-                    {/* Summary */}
-                    <p className="text-sm text-white/45 leading-relaxed mb-6">
-                      {release.summary}
-                    </p>
-
-                    {/* Change list */}
-                    <ul className="space-y-3">
-                      {release.changes.map((entry, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <Badge kind={entry.kind} />
-                          <span className="text-sm text-white/55 leading-relaxed">
-                            {entry.text}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-
-                {/* Future placeholder */}
-                <div className="relative pl-8">
-                  <div className="absolute left-0 top-3 w-[11px] h-[11px] rounded-full border-2 border-white/15 bg-black" />
-                  <div className="flex items-center gap-3 mb-3">
-                    <h2 className="text-lg font-semibold text-white/20 font-mono">
-                      v0.2.0
-                    </h2>
-                    <Soon />
-                  </div>
-                  <p className="text-sm text-white/20 leading-relaxed">
-                    Sponsored fees, optional local Simulate, and Mainnet — see roadmap.
-                    ETA to be announced.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ── Roadmap sidebar ── */}
-          <aside className="lg:w-72 shrink-0">
-            <div className="sticky top-24">
-              <h3 className="text-xs font-mono font-semibold text-white/20 uppercase tracking-widest mb-5">
-                On the roadmap
-              </h3>
-              <ul className="space-y-4">
-                {roadmap.map(({ label, desc }) => (
-                  <li key={label} className="flex gap-3">
-                    <div
-                      className="w-1 rounded-full shrink-0 mt-1"
-                      style={{ backgroundColor: "var(--color-brand)", opacity: 0.3, minHeight: "1rem" }}
-                    />
-                    <div>
-                      <p className="text-sm text-white/50 font-medium leading-snug mb-0.5">
-                        {label}
-                      </p>
-                      <p className="text-xs text-white/25 leading-relaxed">{desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-10 pt-6 border-t border-white/8">
-                <p className="text-xs text-white/25 leading-relaxed mb-4">
-                  Have a feature request or found a bug?
-                </p>
-                <a
-                  href="https://github.com/midnightntwrk"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs text-white/40 hover:text-white/70 transition-colors border border-white/10 hover:border-white/20 px-3 py-2 rounded-lg"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-                  </svg>
-                  Open an issue
-                </a>
-              </div>
-            </div>
-          </aside>
-        </div>
-
-        {/* Bottom nav */}
-        <div className="mt-20 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <Link href="/docs" className="text-xs text-white/30 hover:text-white/60 transition-colors">
-            Docs →
-          </Link>
-          <Link href="/" className="text-xs text-white/30 hover:text-white/60 transition-colors">
-            ← Back to Compact Lab
-          </Link>
-        </div>
-      </div>
-    </div>
+        <section {...reveal()} className="mt-16 rounded-xl border border-border bg-surface p-6">
+          <h2 className="text-lg font-medium text-text-primary">
+            Coming next
+            <Planned />
+          </h2>
+          <p className="mt-1 text-sm text-text-muted">On the roadmap, in rough order. Not available yet.</p>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {PLANNED.map(([title, body]) => (
+              <li key={title}>
+                <p className="text-sm text-text-primary">{title}</p>
+                <p className="mt-0.5 text-sm text-text-secondary">{body}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </Container>
+    </main>
   );
 }
